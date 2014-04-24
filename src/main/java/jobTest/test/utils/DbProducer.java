@@ -47,7 +47,7 @@ public class DbProducer
 	
 	public org.neo4j.graphdb.GraphDatabaseService getDbService() {
 		// TODO : to implement
-		return new org.neo4j.graphdb.GraphDatabaseService();	
+		return null;	
 	}
 	
 	/**

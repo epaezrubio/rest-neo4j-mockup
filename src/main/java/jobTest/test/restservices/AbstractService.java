@@ -38,7 +38,7 @@ public abstract class AbstractService
 	
 	public javax.ws.rs.core.Response create(String body) {
 		// TODO : to implement
-		return new javax.ws.rs.core.Response();	
+		return null;	
 	}
 
 	/**
@@ -50,7 +50,7 @@ public abstract class AbstractService
 	
 	public javax.ws.rs.core.Response read(long id) {
 		// TODO : to implement
-		return new javax.ws.rs.core.Response();	
+		return null;	
 	}
 
 	/**
@@ -62,7 +62,7 @@ public abstract class AbstractService
 	
 	public javax.ws.rs.core.Response update(String body) {
 		// TODO : to implement
-		return new javax.ws.rs.core.Response();	
+		return null;	
 	}
 
 	/**
@@ -74,7 +74,7 @@ public abstract class AbstractService
 	
 	public javax.ws.rs.core.Response delete(long id) {
 		// TODO : to implement
-		return new javax.ws.rs.core.Response();	
+		return null;	
 	}
 	
 }

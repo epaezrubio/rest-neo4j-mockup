@@ -45,9 +45,9 @@ public class AbstractEntity
 	 * @ordered
 	 */
 	
-	public long getId() {
+	public Long getId() {
 		// TODO : to implement
-		return 0L;	
+		return null;	
 	}
 	
 }
