@@ -9,7 +9,7 @@ import jobTest.org.neo4j.graphdb.Node;
  * @generated
  */
 
-public class AbstractEntity
+public abstract class AbstractEntity
 {
 	/**
 	 * <!-- begin-user-doc -->
