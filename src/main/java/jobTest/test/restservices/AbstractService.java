@@ -1,5 +1,7 @@
 package jobTest.test.restservices;
 
+import javax.inject.Inject;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +17,7 @@ public abstract class AbstractService<T>
 	 * @generated
 	 * @ordered
 	 */
+	@Inject
 	public org.neo4j.graphdb.GraphDatabaseService dbService;
 	
 	/**

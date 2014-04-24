@@ -7,7 +7,7 @@ package jobTest.test.entities;
  * @generated
  */
 
-public class User extends AbstractEntity
+public class User extends AbstractEntity<User>
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -141,6 +141,18 @@ public class User extends AbstractEntity
 	
 	public void setPassword(String password) {
 		// TODO : to implement	
+	}
+
+	@Override
+	public String serialize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User deserialize(String json) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

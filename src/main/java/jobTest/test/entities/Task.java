@@ -7,7 +7,7 @@ package jobTest.test.entities;
  * @generated
  */
 
-public class Task extends AbstractEntity
+public class Task extends AbstractEntity<Task>
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,6 +79,18 @@ public class Task extends AbstractEntity
 	
 	public void setDate(long date) {
 		// TODO : to implement	
+	}
+
+	@Override
+	public String serialize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Task deserialize(String json) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
