@@ -1,5 +1,7 @@
 package jobTest.test.restservices;
 
+import jobTest.test.entities.User;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -7,7 +9,7 @@ package jobTest.test.restservices;
  * @generated
  */
 
-public class UserService extends AbstractService
+public class UserService extends AbstractService<User>
 {
 	/**
 	 * <!-- begin-user-doc -->
