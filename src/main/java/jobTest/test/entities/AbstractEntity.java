@@ -49,6 +49,24 @@ public abstract class AbstractEntity
 		// TODO : to implement
 		return null;	
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public abstract String serialize() ;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public abstract void deserialize(String json) ;
 	
 }
 
