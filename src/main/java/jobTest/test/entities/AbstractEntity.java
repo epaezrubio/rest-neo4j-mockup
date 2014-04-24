@@ -7,7 +7,7 @@ package jobTest.test.entities;
  * @generated
  */
 
-public class AbstractEntity
+public abstract class AbstractEntity
 {
 	/**
 	 * <!-- begin-user-doc -->
