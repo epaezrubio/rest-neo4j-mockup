@@ -33,6 +33,15 @@ public abstract class AbstractEntity
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
+	 * @ordered
+	 */
+	
+	public long id;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
 	 */
 	public AbstractEntity(){
 		super();
