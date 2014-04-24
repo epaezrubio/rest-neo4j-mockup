@@ -66,7 +66,18 @@ public abstract class AbstractEntity
 	 * @ordered
 	 */
 	
-	public abstract void deserialize(String json) ;
+	public abstract AbstractEntity deserialize(String json) ;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public void updateOrCreate() {
+		// TODO : to implement	
+	}
 	
 }
 
