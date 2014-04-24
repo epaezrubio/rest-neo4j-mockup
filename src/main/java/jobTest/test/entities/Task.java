@@ -1,5 +1,12 @@
 package jobTest.test.entities;
 
+import java.io.Reader;
+import java.io.StringReader;
+
+import javax.json.Json;
+import javax.json.JsonReader;
+import javax.json.stream.JsonParser;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +31,7 @@ public class Task extends AbstractEntity<Task>
 	 * @ordered
 	 */
 	
-	public long date;
+	public Long date;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -54,9 +61,9 @@ public class Task extends AbstractEntity<Task>
 	 * @ordered
 	 */
 	
-	public long getDate() {
+	public Long getDate() {
 		// TODO : to implement
-		return 0L;	
+		return null;	
 	}
 
 	/**
@@ -80,18 +87,5 @@ public class Task extends AbstractEntity<Task>
 	public void setDate(long date) {
 		// TODO : to implement	
 	}
-
-	@Override
-	public String serialize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Task deserialize(String json) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
 

@@ -1,5 +1,15 @@
 package jobTest.test.entities;
 
+import java.io.StringReader;
+import java.lang.reflect.Field;
+import java.util.UUID;
+
+import javax.enterprise.inject.New;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+import javax.json.stream.JsonParser;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +41,15 @@ public abstract class AbstractEntity<T>
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
+	 * @ordered
+	 */
+	
+	public Long id;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
 	 */
 	public AbstractEntity(){
 		super();
@@ -55,7 +74,42 @@ public abstract class AbstractEntity<T>
 	 * @ordered
 	 */
 	
-	public abstract String serialize() ;
+	public String serialize(){
+		if (id == null) {
+			underlyingNode = dbService.createNode();	
+		}
+		
+		Field[] fields = this.getClass().getFields();
+		
+		JsonObjectBuilder builder = Json.createObjectBuilder();
+		
+		for ( int i = 0; i < fields.length; i++ ){
+			
+			Field field = fields[i];
+			
+			try {
+				
+				String key = field.getName();
+				Object value = field.get(this);
+				
+				if ( field.get(this) != null ){
+					if (value.getClass().isAssignableFrom(Integer.class)){
+						builder.add(key, (Integer)value);
+					}else if (value.getClass().isAssignableFrom(Long.class)){
+						builder.add(key, (Long)value);
+					} else {
+						builder.add(key, value.toString());
+					}
+				}
+				
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return builder.build().toString();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -64,7 +118,40 @@ public abstract class AbstractEntity<T>
 	 * @ordered
 	 */
 	
-	public abstract T deserialize(String json) ;
+	public T deserialize(String json){
+		JsonParser parser = Json.createParser(new StringReader(json));
+		while (parser.hasNext()){
+			if(parser.next().equals(JsonParser.Event.KEY_NAME)){
+				String name = parser.getString();
+				
+				switch(parser.next()){
+					case VALUE_STRING:
+					try {
+						this.getClass().getField(name).set(this, parser.getString());
+					} catch (IllegalArgumentException | IllegalAccessException
+							| NoSuchFieldException | SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+						
+					case VALUE_NUMBER:
+					try {
+						this.getClass().getField(name).set(this, parser.getLong());
+					} catch (IllegalArgumentException | IllegalAccessException
+							| NoSuchFieldException | SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				default:
+					break;
+					
+				}
+			}
+		}
+		
+		return (T) this;
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,8 +161,54 @@ public abstract class AbstractEntity<T>
 	 */
 	
 	public void updateOrCreate() {
-		// TODO : to implement	
+		
+		if (id == null) {
+			underlyingNode = dbService.createNode();	
+		}
+		
+		Field[] fields = this.getClass().getFields();
+		 
+		for ( int i = 0; i < fields.length; i++ ){
+			
+			Field field = fields[i];
+			if ( "id".equals(field.getName()) ) continue;
+			try {
+				
+				String key = field.getName();
+				Object value = field.get(this);
+				
+				if( "DELETE".equals(value)){
+					underlyingNode.removeProperty(key);
+				}
+				
+				if ( field.get(this) != null ){
+					underlyingNode.setProperty(key, value);
+				}
+				
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
 	}
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
