@@ -2,12 +2,8 @@ package jobTest.test.entities;
 
 import java.io.StringReader;
 import java.lang.reflect.Field;
-import java.util.UUID;
-
-import javax.enterprise.inject.New;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
 import javax.json.stream.JsonParser;
 
 
@@ -25,6 +21,7 @@ public abstract class AbstractEntity<T>
 	 * @generated
 	 * @ordered
 	 */
+	
 	
 	public org.neo4j.graphdb.GraphDatabaseService dbService;
 	
@@ -160,7 +157,7 @@ public abstract class AbstractEntity<T>
 	 * @ordered
 	 */
 	
-	public void updateOrCreate() {
+	public T updateOrCreate() {
 		
 		if (id == null) {
 			underlyingNode = dbService.createNode();	
@@ -189,6 +186,29 @@ public abstract class AbstractEntity<T>
 				e.printStackTrace();
 			}
 		}
+		
+		return (T) this;
+	}
+	
+	public T load(Long id){
+		
+		this.id = id;
+		underlyingNode = dbService.getNodeById(id);
+		
+		for(String key : underlyingNode.getPropertyKeys()){
+			try {
+				this.getClass().getField(key).set(this, underlyingNode.getProperty(key));
+			} catch (IllegalArgumentException | IllegalAccessException
+					| NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return (T) this;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
 
