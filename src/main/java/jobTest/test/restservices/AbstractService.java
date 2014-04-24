@@ -1,5 +1,4 @@
 package jobTest.test.restservices;
-import jobTest. org.neo4j.graphdb.GraphDatabaseService;
 
 
 /**
@@ -8,7 +7,7 @@ import jobTest. org.neo4j.graphdb.GraphDatabaseService;
  * @generated
  */
 
-public abstract class AbstractService
+public abstract class AbstractService<T>
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -36,7 +35,6 @@ public abstract class AbstractService
 	 */
 	
 	public void create() {
-		// TODO : to implement	
 	}
 	
 	/**
