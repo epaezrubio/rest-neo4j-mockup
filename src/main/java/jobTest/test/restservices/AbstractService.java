@@ -1,5 +1,7 @@
 package jobTest.test.restservices;
 
+import javax.ws.rs.core.Response;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -15,7 +17,6 @@ public abstract class AbstractService<T>
 	 * @generated
 	 * @ordered
 	 */
-	
 	public org.neo4j.graphdb.GraphDatabaseService dbService;
 	
 	/**

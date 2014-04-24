@@ -1,5 +1,4 @@
 package jobTest.test.utils;
-import jobTest. org.neo4j.graphdb.GraphDatabaseService;
 
 
 /**
@@ -47,7 +46,7 @@ public class DbProducer
 	
 	public org.neo4j.graphdb.GraphDatabaseService getDbService() {
 		// TODO : to implement
-		return new org.neo4j.graphdb.GraphDatabaseService();	
+		return null;	
 	}
 	
 	/**
