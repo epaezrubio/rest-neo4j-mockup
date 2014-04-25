@@ -5,22 +5,17 @@
 	<artifactId>jobTest</artifactId>
 	<name>jobTest</name>
 	<groupId>jobTest</groupId>
-	<!--
-		* Start of user code for project
-	  -->
-	<packaging>jar</packaging>
+	<!-- * Start of user code for project -->
+	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.7</java-version>
+		<neo4j.version>2.0.1</neo4j.version>
 	</properties>
-	<!--
-		* End of user code for project
-	  -->
+	<!-- * End of user code for project -->
 	<build>
 		<plugins>
-			<!--
-				* Start of user code for plugins
-		  	-->
+			<!-- * Start of user code for plugins -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -33,23 +28,29 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			<!--
-				* End of user code for plugins
-		  	-->		
-			</plugins>
-		<!--
-			* Start of user code for build
-		  -->
-		<!--
-			* End of user code for build
-		  -->
+			<!-- * End of user code for plugins -->
+		</plugins>
+		<!-- * Start of user code for build -->
+		<!-- * End of user code for build -->
 	</build>
 	<dependencies>
-		<!--
-			* Start of user code for dependencies
-		  -->
-		<!--
-			* End of user code for dependencies
-		  -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j</artifactId>
+			<version>${neo4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-kernel</artifactId>
+			<version>${neo4j.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

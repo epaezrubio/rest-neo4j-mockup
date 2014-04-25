@@ -1,9 +1,5 @@
 package jobTest.test.restservices;
 
-import jobTest. org.neo4j.graphdb.GraphDatabaseService;
-import jobTest.javax.ws.rs.core.Response;
-
-
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
