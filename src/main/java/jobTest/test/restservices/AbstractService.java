@@ -1,5 +1,8 @@
 package jobTest.test.restservices;
 
+import jobTest. org.neo4j.graphdb.GraphDatabaseService;
+import jobTest.javax.ws.rs.core.Response;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +39,7 @@ public abstract class AbstractService
 	
 	public javax.ws.rs.core.Response create(String body) {
 		// TODO : to implement
-		return null;	
+		return new javax.ws.rs.core.Response();	
 	}
 
 	/**
@@ -71,6 +74,18 @@ public abstract class AbstractService
 	 */
 	
 	public javax.ws.rs.core.Response delete(long id) {
+		// TODO : to implement
+		return null;	
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public javax.ws.rs.core.Response list() {
 		// TODO : to implement
 		return null;	
 	}

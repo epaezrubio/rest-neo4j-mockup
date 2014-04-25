@@ -1,5 +1,8 @@
 package jobTest.test.entities;
 
+import jobTest. org.neo4j.graphdb.GraphDatabaseService;
+import jobTest.org.neo4j.graphdb.Node;
+
 
 /**
  * <!-- begin-user-doc -->
