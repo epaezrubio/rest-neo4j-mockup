@@ -204,7 +204,6 @@ public abstract class AbstractEntity<T>
 			tx.close();
 		}
 
-
 		return (T) this;
 	}
 

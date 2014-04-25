@@ -1,7 +1,5 @@
 package jobTest.test.restservices;
 
-import java.net.URI;
-
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -12,8 +10,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.neo4j.graphdb.Transaction;
 
@@ -31,6 +31,9 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 
 	@Inject
 	Instance<T> instance;
+	
+	@Context
+	UriInfo uriInfo;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -39,7 +42,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 * @ordered
 	 */
 	@Inject
-	public org.neo4j.graphdb.GraphDatabaseService dbService;
+	org.neo4j.graphdb.GraphDatabaseService dbService;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,9 +70,8 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 		T entity = instance.get().deserialize(body).updateOrCreate();
 
 		return Response.created(
-				URI.create(
-						String.valueOf("http://localhost/rest/" + entity.getId())))
-						.build();	
+				uriInfo.getAbsolutePathBuilder().path(String.valueOf(entity.getId())).build())
+				.build();	
 	}
 
 	/**
