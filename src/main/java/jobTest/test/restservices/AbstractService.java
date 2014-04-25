@@ -135,7 +135,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 */
 	
 	public javax.ws.rs.core.Response list() {
-		// TODO : to implement
+//		dbService.
 		return null;	
 	}
 	

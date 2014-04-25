@@ -168,9 +168,8 @@ public abstract class AbstractEntity<T>
 
 		try {
 			if (id == null) {
-				underlyingNode = dbService.createNode();	
 				Label label = DynamicLabel.label(this.getClass().getName());
-				underlyingNode.addLabel(label);
+				underlyingNode = dbService.createNode(label);	
 				id = underlyingNode.getId();
 			}
 
