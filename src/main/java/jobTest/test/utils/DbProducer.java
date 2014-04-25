@@ -18,7 +18,7 @@ public class DbProducer
 	 * @ordered
 	 */
 	
-	public String db_path;
+	private String db_path;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -27,7 +27,7 @@ public class DbProducer
 	 * @ordered
 	 */
 	
-	public org.neo4j.graphdb.GraphDatabaseService dbService;
+	private org.neo4j.graphdb.GraphDatabaseService dbService;
 	
 	/**
 	 * <!-- begin-user-doc -->

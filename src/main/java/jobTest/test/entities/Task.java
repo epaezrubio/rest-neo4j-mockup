@@ -16,7 +16,7 @@ public class Task extends AbstractEntity
 	 * @ordered
 	 */
 	
-	public String title;
+	protected String title;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -24,7 +24,7 @@ public class Task extends AbstractEntity
 	 * @ordered
 	 */
 	
-	public long date;
+	protected long date;
 
 	/**
 	 * <!-- begin-user-doc -->

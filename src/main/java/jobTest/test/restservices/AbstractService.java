@@ -18,7 +18,7 @@ public abstract class AbstractService
 	 * @ordered
 	 */
 	
-	public org.neo4j.graphdb.GraphDatabaseService dbService;
+	protected org.neo4j.graphdb.GraphDatabaseService dbService;
 	
 	/**
 	 * <!-- begin-user-doc -->

@@ -18,7 +18,7 @@ public abstract class AbstractEntity
 	 * @ordered
 	 */
 	
-	public org.neo4j.graphdb.GraphDatabaseService dbService;
+	protected org.neo4j.graphdb.GraphDatabaseService dbService;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -27,7 +27,7 @@ public abstract class AbstractEntity
 	 * @ordered
 	 */
 	
-	public org.neo4j.graphdb.Node underlyingNode;
+	protected org.neo4j.graphdb.Node underlyingNode;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -36,7 +36,7 @@ public abstract class AbstractEntity
 	 * @ordered
 	 */
 	
-	public long id;
+	protected long id;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -66,7 +66,10 @@ public abstract class AbstractEntity
 	 * @ordered
 	 */
 	
-	public abstract String serialize() ;
+	public String serialize() {
+		// TODO : to implement
+		return "";	
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,7 +78,10 @@ public abstract class AbstractEntity
 	 * @ordered
 	 */
 	
-	public abstract AbstractEntity deserialize(String json) ;
+	public AbstractEntity deserialize(String json) {
+		// TODO : to implement
+		return null;	
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
