@@ -127,5 +127,17 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 		return Response.noContent().build();	
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public javax.ws.rs.core.Response list() {
+		// TODO : to implement
+		return null;	
+	}
+	
 }
 
