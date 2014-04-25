@@ -9,6 +9,8 @@ import javax.json.JsonObjectBuilder;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
 
+import org.neo4j.graphdb.DynamicLabel;
+import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Transaction;
 
 
@@ -167,6 +169,8 @@ public abstract class AbstractEntity<T>
 		try {
 			if (id == null) {
 				underlyingNode = dbService.createNode();	
+				Label label = DynamicLabel.label(this.getClass().getName());
+				underlyingNode.addLabel(label);
 				id = underlyingNode.getId();
 			}
 
