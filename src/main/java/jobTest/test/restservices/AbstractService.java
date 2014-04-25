@@ -39,7 +39,7 @@ public abstract class AbstractService
 	
 	public javax.ws.rs.core.Response create(String body) {
 		// TODO : to implement
-		return new javax.ws.rs.core.Response();	
+		return null;	
 	}
 
 	/**
