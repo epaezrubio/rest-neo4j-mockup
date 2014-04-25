@@ -59,8 +59,7 @@ public class User extends AbstractEntity<User>
 	 */
 	
 	public String getFirstName() {
-		// TODO : to implement
-		return null;	
+		return firstName;	
 	}
 
 	/**
@@ -72,7 +71,7 @@ public class User extends AbstractEntity<User>
 	
 	public String getLastName() {
 		// TODO : to implement
-		return null;	
+		return lastName;	
 	}
 
 	/**
@@ -84,7 +83,7 @@ public class User extends AbstractEntity<User>
 	
 	public String getEmail() {
 		// TODO : to implement
-		return null;	
+		return email;	
 	}
 
 	/**
@@ -96,7 +95,7 @@ public class User extends AbstractEntity<User>
 	
 	public String getPassword() {
 		// TODO : to implement
-		return null;	
+		return password;	
 	}
 
 	/**
@@ -107,7 +106,7 @@ public class User extends AbstractEntity<User>
 	 */
 	
 	public void setFirstName(String firstName) {
-		// TODO : to implement	
+		this.firstName = firstName;
 	}
 
 	/**
@@ -118,7 +117,7 @@ public class User extends AbstractEntity<User>
 	 */
 	
 	public void setLastName(String lastName) {
-		// TODO : to implement	
+		this.lastName = lastName;
 	}
 
 	/**
@@ -129,7 +128,7 @@ public class User extends AbstractEntity<User>
 	 */
 	
 	public void setEmail(String email) {
-		// TODO : to implement	
+		this.email = email;
 	}
 
 	/**
@@ -140,20 +139,7 @@ public class User extends AbstractEntity<User>
 	 */
 	
 	public void setPassword(String password) {
-		// TODO : to implement	
+		this.password = password;
 	}
-
-	@Override
-	public String serialize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User deserialize(String json) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
 
