@@ -36,7 +36,7 @@ public abstract class AbstractEntity
 	 * @ordered
 	 */
 	
-	protected long id;
+	protected Long id;
 
 	/**
 	 * <!-- begin-user-doc -->
