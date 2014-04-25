@@ -1,5 +1,6 @@
 package jobTest.test.restservices;
 
+import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
 import jobTest.test.entities.Task;
@@ -11,6 +12,7 @@ import jobTest.test.entities.Task;
  * @generated
  */
 @Path("tasks")
+@Stateless
 public class TaskService extends AbstractService<Task>
 {
 	

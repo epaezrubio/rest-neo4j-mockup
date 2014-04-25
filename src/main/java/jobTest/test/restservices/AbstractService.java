@@ -14,6 +14,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.neo4j.graphdb.Transaction;
+
 import jobTest.test.entities.AbstractEntity;
 
 
@@ -61,10 +64,11 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 		// TODO : to implement
 		instance.get().deserialize(body).updateOrCreate().getId();
 
+		T entity = instance.get().deserialize(body).updateOrCreate();
 
 		return Response.created(
 				URI.create(
-						String.valueOf("http://localhost/rest/" + instance.get().deserialize(body).updateOrCreate().getId())))
+						String.valueOf("http://localhost/rest/" + entity.getId())))
 						.build();	
 	}
 
@@ -107,9 +111,19 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 */
 	@DELETE
 	@Path("{id}")
-	public javax.ws.rs.core.Response delete(long id) {
-		dbService.getNodeById(id).delete();
-		return Response.ok().build();	
+	public javax.ws.rs.core.Response delete(@PathParam("id") Long id) {
+		Transaction tx = dbService.beginTx();
+		try {
+			dbService.getNodeById(id).delete();
+			tx.success();
+		} catch (Exception e) {
+			tx.failure();
+			throw e;
+		} finally {
+			tx.close();
+		}
+		
+		return Response.noContent().build();	
 	}
 
 }

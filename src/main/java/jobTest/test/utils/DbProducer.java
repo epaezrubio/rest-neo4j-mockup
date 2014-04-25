@@ -1,6 +1,7 @@
 package jobTest.test.utils;
 
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
@@ -13,6 +14,7 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
  * @generated
  */
 
+@ApplicationScoped
 public class DbProducer
 {
 	/**
@@ -22,7 +24,7 @@ public class DbProducer
 	 * @ordered
 	 */
 	
-	public String db_path = "neo4j-test";
+	String db_path = "neo4j-test";
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,7 +33,7 @@ public class DbProducer
 	 * @ordered
 	 */
 	
-	public org.neo4j.graphdb.GraphDatabaseService dbService;
+	org.neo4j.graphdb.GraphDatabaseService dbService;
 	
 	/**
 	 * <!-- begin-user-doc -->
