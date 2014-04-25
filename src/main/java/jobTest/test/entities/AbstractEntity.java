@@ -26,27 +26,24 @@ public abstract class AbstractEntity<T>
 	 * @generated
 	 * @ordered
 	 */
-
-	@Inject
-	public org.neo4j.graphdb.GraphDatabaseService dbService;
-
+	protected org.neo4j.graphdb.GraphDatabaseService dbService;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 * @ordered
 	 */
-
-	public org.neo4j.graphdb.Node underlyingNode;
-
+	protected org.neo4j.graphdb.Node underlyingNode;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 * @ordered
 	 */
-
-	public Long id;
+	
+	protected Long id;
 
 	/**
 	 * <!-- begin-user-doc -->

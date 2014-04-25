@@ -23,18 +23,17 @@ public class DbProducer
 	 * @generated
 	 * @ordered
 	 */
-	
-	String db_path = "neo4j-test";
-	
+	private String db_path = "neo4j-test";
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 * @ordered
 	 */
-	
-	org.neo4j.graphdb.GraphDatabaseService dbService;
-	
+
+	private org.neo4j.graphdb.GraphDatabaseService dbService;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -54,7 +53,7 @@ public class DbProducer
 	public org.neo4j.graphdb.GraphDatabaseService getDbService() {
 		return dbService;
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -65,6 +64,6 @@ public class DbProducer
 	public void shutDown() {
 		dbService.shutdown();
 	}
-	
+
 }
 

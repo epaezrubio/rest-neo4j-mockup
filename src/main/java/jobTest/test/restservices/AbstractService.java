@@ -41,9 +41,8 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 * @generated
 	 * @ordered
 	 */
-	@Inject
-	org.neo4j.graphdb.GraphDatabaseService dbService;
-
+	protected org.neo4j.graphdb.GraphDatabaseService dbService;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->

@@ -16,7 +16,7 @@ public class User extends AbstractEntity<User>
 	 * @ordered
 	 */
 	
-	public String firstName;
+	protected String firstName;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -24,7 +24,7 @@ public class User extends AbstractEntity<User>
 	 * @ordered
 	 */
 	
-	public String lastName;
+	protected String lastName;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -32,7 +32,7 @@ public class User extends AbstractEntity<User>
 	 * @ordered
 	 */
 	
-	public String email;
+	protected String email;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -40,7 +40,7 @@ public class User extends AbstractEntity<User>
 	 * @ordered
 	 */
 	
-	public String password;
+	protected String password;
 
 	/**
 	 * <!-- begin-user-doc -->
