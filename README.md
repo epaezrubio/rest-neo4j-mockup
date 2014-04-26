@@ -32,7 +32,7 @@ try ( Transaction tx = graphDb.beginTx() )
      tx.success();
  }
 ```
-######JAX-RS (https://jersey.java.net/documentation/latest/jaxrs-resources.html)
+### JAX-RS (https://jersey.java.net/documentation/latest/jaxrs-resources.html)
 ```
 @POST
 @Consumes(MediaType.APPLICATION_JSON)
