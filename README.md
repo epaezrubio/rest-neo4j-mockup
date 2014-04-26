@@ -8,7 +8,7 @@ Application example
 
 ### Neo4j
 ######Instantiating an embedded database:
-```org.neo4j.graphdb.GraphDatabaseService dbService = new GraphDatabaseFactory().newEmbeddedDatabase( db_path );```
+```org.neo4j.graphdb.GraphDatabaseService graphDb = new GraphDatabaseFactory().newEmbeddedDatabase( db_path );```
 ######Class wrapper
 ```
 class SomeClass{
@@ -31,4 +31,25 @@ try ( Transaction tx = graphDb.beginTx() )
      // ...
      tx.success();
  }
- ```
+```
+######JAX-RS (https://jersey.java.net/documentation/latest/jaxrs-resources.html)
+```
+@POST
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public javax.ws.rs.core.Response postMethod(String body);
+
+@GET
+@Path("{id}")
+@Produces(MediaType.APPLICATION_JSON)
+public javax.ws.rs.core.Response getMethod(@PathParam("id") Long id);
+	
+@PUT
+@Path("{id}")
+@Consumes(MediaType.APPLICATION_JSON)
+public javax.ws.rs.core.Response puthMethod(@PathParam("id") Long id, String body);
+	
+@DELETE
+@Path("{id}")
+public javax.ws.rs.core.Response deleteMEthod(@PathParam("id") Long id);
+```
