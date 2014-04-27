@@ -167,9 +167,6 @@ public abstract class AbstractEntity<T>
 	 */
 
 	public T updateOrCreate() {
-
-
-		try ( Transaction tx = dbService.beginTx() ){
 			if (id == null) {
 				Label label = DynamicLabel.label(this.getClass().getSimpleName());
 				underlyingNode = dbService.createNode(label);	
@@ -199,11 +196,6 @@ public abstract class AbstractEntity<T>
 					e.printStackTrace();
 				}
 			}
-			tx.success();
-		} catch (SecurityException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		return (T) this;
 	}
 

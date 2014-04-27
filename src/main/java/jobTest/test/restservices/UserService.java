@@ -17,7 +17,7 @@ public class UserService extends AbstractService<User>
 	 * @generated
 	 */
 	public UserService(){
-		super();
+		super(User.class);
 	}
 
 }

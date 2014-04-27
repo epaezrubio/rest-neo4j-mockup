@@ -24,6 +24,8 @@ import org.neo4j.cypher.javacompat.ExecutionResult;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
+import org.neo4j.rest.graphdb.RestGraphDatabase;
+import org.neo4j.rest.graphdb.entity.RestNode;
 
 import jobTest.test.entities.AbstractEntity;
 
@@ -39,10 +41,10 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 
 	@Inject
 	Instance<T> instance;
-	
+
 	@Context
 	UriInfo uriInfo;
-	
+
 	Class<T> currentClass;
 
 	/**
@@ -53,7 +55,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 */
 	@Inject
 	protected org.neo4j.graphdb.GraphDatabaseService dbService;
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -110,7 +112,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public javax.ws.rs.core.Response update(@PathParam("id") Long id, String body) {
-		instance.get().deserialize(body).updateOrCreate();
+		instance.get().load(id).deserialize(body).updateOrCreate();
 		return Response.noContent().build();	
 	}
 
@@ -123,17 +125,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	@DELETE
 	@Path("{id}")
 	public javax.ws.rs.core.Response delete(@PathParam("id") Long id) {
-		Transaction tx = dbService.beginTx();
-		try {
-			dbService.getNodeById(id).delete();
-			tx.success();
-		} catch (Exception e) {
-			tx.failure();
-			throw e;
-		} finally {
-			tx.close();
-		}
-		
+		dbService.getNodeById(id).delete();
 		return Response.noContent().build();	
 	}
 
@@ -145,25 +137,17 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 */
 	@GET
 	public javax.ws.rs.core.Response list() {
-		org.neo4j.cypher.javacompat.ExecutionEngine engine = 
-				new org.neo4j.cypher.javacompat.ExecutionEngine( dbService );
 
-		ExecutionResult result;
-		try ( Transaction ignored = dbService.beginTx() )
-		{
-			ArrayList<T> list = new ArrayList<>();
-		    result = engine.execute( "match(n:" + currentClass.getSimpleName() + ") return n;" );
-		    ResourceIterator<Object> it = result.columnAs("n");
-		    JsonArrayBuilder builder = Json.createArrayBuilder();
-		    
-		    while(it.hasNext()){
-		    	builder.add(instance.get().load((Node) it.next()).serialize());
-		    }
-		    
-			return Response.ok(builder.build().toString()).build();
+		Iterable<RestNode> it = ((RestGraphDatabase) dbService).getRestAPI().getNodesByLabel(currentClass.getSimpleName());
+		JsonArrayBuilder builder = Json.createArrayBuilder();
+
+		for(Node n : it){
+			builder.add(instance.get().load(n).serialize());
 		}
+
+		return Response.ok(builder.build().toString()).build();
 	}
-	
+
 }
 
 
