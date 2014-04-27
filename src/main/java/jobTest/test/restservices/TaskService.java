@@ -22,7 +22,7 @@ public class TaskService extends AbstractService<Task>
 	 * @generated
 	 */
 	public TaskService(){
-		super();
+		super(Task.class);
 	}
 
 }

@@ -1,7 +1,11 @@
 package jobTest.test.restservices;
 
+import java.util.ArrayList;
+
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,11 +14,15 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.neo4j.cypher.javacompat.ExecutionResult;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
 
 import jobTest.test.entities.AbstractEntity;
@@ -34,6 +42,8 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	
 	@Context
 	UriInfo uriInfo;
+	
+	Class<T> currentClass;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -41,6 +51,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 * @generated
 	 * @ordered
 	 */
+	@Inject
 	protected org.neo4j.graphdb.GraphDatabaseService dbService;
 	
 	/**
@@ -48,8 +59,9 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public AbstractService(){
+	protected AbstractService(Class<T> clazz){
 		super();
+		currentClass = clazz;
 	}
 
 	/**
@@ -63,8 +75,6 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public javax.ws.rs.core.Response create(String body) {
-		// TODO : to implement
-		instance.get().deserialize(body).updateOrCreate().getId();
 
 		T entity = instance.get().deserialize(body).updateOrCreate();
 
@@ -133,11 +143,71 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	 * @generated
 	 * @ordered
 	 */
-	
+	@GET
 	public javax.ws.rs.core.Response list() {
-//		dbService.
-		return null;	
+		org.neo4j.cypher.javacompat.ExecutionEngine engine = 
+				new org.neo4j.cypher.javacompat.ExecutionEngine( dbService );
+
+		ExecutionResult result;
+		try ( Transaction ignored = dbService.beginTx() )
+		{
+			ArrayList<T> list = new ArrayList<>();
+		    result = engine.execute( "match(n:" + currentClass.getSimpleName() + ") return n;" );
+		    ResourceIterator<Object> it = result.columnAs("n");
+		    JsonArrayBuilder builder = Json.createArrayBuilder();
+		    
+		    while(it.hasNext()){
+		    	builder.add(instance.get().load((Node) it.next()).serialize());
+		    }
+		    
+			return Response.ok(builder.build().toString()).build();
+		}
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

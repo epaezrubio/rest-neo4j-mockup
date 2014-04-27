@@ -16,14 +16,14 @@ public class Task extends AbstractEntity<Task>
 	 * @ordered
 	 */
 	
-	protected String title;
+	String title;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 * @ordered
 	 */
-	public Long date;
+	Long date;
 
 	/**
 	 * <!-- begin-user-doc -->

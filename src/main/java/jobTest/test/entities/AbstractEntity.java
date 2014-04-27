@@ -11,6 +11,7 @@ import javax.json.stream.JsonParser.Event;
 
 import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.Label;
+import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
 
@@ -28,8 +29,9 @@ public abstract class AbstractEntity<T>
 	 * @generated
 	 * @ordered
 	 */
+	@Inject
 	protected org.neo4j.graphdb.GraphDatabaseService dbService;
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -37,15 +39,15 @@ public abstract class AbstractEntity<T>
 	 * @ordered
 	 */
 	protected org.neo4j.graphdb.Node underlyingNode;
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 * @ordered
 	 */
-	
-	protected Long id;
+
+	Long id;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,7 +81,7 @@ public abstract class AbstractEntity<T>
 			underlyingNode = dbService.createNode();	
 		}
 
-		Field[] fields = this.getClass().getFields();
+		Field[] fields = this.getClass().getDeclaredFields();
 
 		JsonObjectBuilder builder = Json.createObjectBuilder();
 
@@ -125,25 +127,27 @@ public abstract class AbstractEntity<T>
 				String name = parser.getString();
 				Event event = parser.next();
 				switch(event){
-					case VALUE_STRING:
-						try {
-							this.getClass().getField(name).set(this, parser.getString());
-						} catch (IllegalArgumentException | IllegalAccessException
-								| NoSuchFieldException | SecurityException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						break;
-	
-					case VALUE_NUMBER:
-						try {
-							this.getClass().getField(name).set(this, parser.getLong());
-						} catch (IllegalArgumentException | IllegalAccessException
-								| NoSuchFieldException | SecurityException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						break;
+				case VALUE_STRING:
+					try {
+						this.getClass().getDeclaredField(name).setAccessible(true);
+						this.getClass().getDeclaredField(name).set(this, parser.getString());
+					} catch (IllegalArgumentException | IllegalAccessException
+							| NoSuchFieldException | SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+
+				case VALUE_NUMBER:
+					try {
+						this.getClass().getDeclaredField(name).setAccessible(true);
+						this.getClass().getDeclaredField(name).set(this, parser.getLong());
+					} catch (IllegalArgumentException | IllegalAccessException
+							| NoSuchFieldException | SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
 
 				default:
 					break;
@@ -164,20 +168,19 @@ public abstract class AbstractEntity<T>
 
 	public T updateOrCreate() {
 
-		Transaction tx = dbService.beginTx();
 
-		try {
+		try ( Transaction tx = dbService.beginTx() ){
 			if (id == null) {
-				Label label = DynamicLabel.label(this.getClass().getName());
+				Label label = DynamicLabel.label(this.getClass().getSimpleName());
 				underlyingNode = dbService.createNode(label);	
 				id = underlyingNode.getId();
 			}
 
-			Field[] fields = this.getClass().getFields();
+			Field[] fields = this.getClass().getDeclaredFields();
 
 			for ( int i = 0; i < fields.length; i++ ){
-
 				Field field = fields[i];
+				field.setAccessible(true);
 				if ( "id".equals(field.getName()) || "underlyingNode".equals(field.getName()) || "dbService".equals(field.getName())) continue;
 				try {
 
@@ -197,37 +200,46 @@ public abstract class AbstractEntity<T>
 				}
 			}
 			tx.success();
-		} catch (Exception e) {
-			tx.failure();
-			throw e;
-		} finally {
-			tx.close();
+		} catch (SecurityException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-
 		return (T) this;
 	}
 
 	public T load(Long id){
 
 		this.id = id;
-		Transaction tx = dbService.beginTx();
 
-		try {
+		try ( Transaction tx = dbService.beginTx() )
+		{
 			underlyingNode = dbService.getNodeById(id);
 			for(String key : underlyingNode.getPropertyKeys()){
 				try {
-					this.getClass().getField(key).set(this, underlyingNode.getProperty(key));
+					this.getClass().getDeclaredField(key).setAccessible(true);
+					this.getClass().getDeclaredField(key).set(this, underlyingNode.getProperty(key));
 				} catch (IllegalArgumentException | IllegalAccessException
 						| NoSuchFieldException | SecurityException e) {
 					e.printStackTrace();
 				}
 			}
 			tx.success();
-		} catch (Exception e) {
-			tx.failure();
-			throw e;
-		} finally {
-			tx.close();
+		}
+
+		return (T) this;
+	}
+
+	public T load(Node n){
+
+		underlyingNode = n;
+		for(String key : underlyingNode.getPropertyKeys()){
+			try {
+				this.getClass().getDeclaredField(key).setAccessible(true);
+				this.getClass().getDeclaredField(key).set(this, underlyingNode.getProperty(key));
+			} catch (IllegalArgumentException | IllegalAccessException
+					| NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return (T) this;
