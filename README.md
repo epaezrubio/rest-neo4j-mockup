@@ -2,13 +2,16 @@ Application example
 ====
 ### Stack:
 * Wildfly http://www.wildfly.org/
-* Neo4j embedded (http://api.neo4j.org/2.0.1/)
+* Neo4j embedded (http://api.neo4j.org/2.0.1/) or 
+* Neo4j RestApi (https://github.com/alacambra/java-rest-binding/tree/2.0-labels-and-indexes)
 * java EE 7: JAX-RS (RestEasy in case of wildfly)
 * Angular or what desired
 
 ### Neo4j
 ######Instantiating an embedded database:
 ```org.neo4j.graphdb.GraphDatabaseService graphDb = new GraphDatabaseFactory().newEmbeddedDatabase( db_path );```
+######Instantiating a RestDatabase:
+see https://github.com/alacambra/java-rest-binding/tree/2.0-labels-and-indexes#usage
 ######Class wrapper
 ```
 class SomeClass{
