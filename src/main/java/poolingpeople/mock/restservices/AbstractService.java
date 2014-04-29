@@ -1,4 +1,4 @@
-package jobTest.test.restservices;
+package poolingpeople.mock.restservices;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.rest.graphdb.RestGraphDatabase;
 import org.neo4j.rest.graphdb.entity.RestNode;
 
-import jobTest.test.entities.AbstractEntity;
+import poolingpeople.mock.entities.AbstractEntity;
 
 
 /**

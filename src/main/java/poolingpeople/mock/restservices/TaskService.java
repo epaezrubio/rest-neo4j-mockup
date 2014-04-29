@@ -1,9 +1,9 @@
-package jobTest.test.restservices;
+package poolingpeople.mock.restservices;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
-import jobTest.test.entities.Task;
+import poolingpeople.mock.entities.Task;
 
 
 /**

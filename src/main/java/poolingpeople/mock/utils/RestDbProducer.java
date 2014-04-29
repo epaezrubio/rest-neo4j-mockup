@@ -1,4 +1,4 @@
-package jobTest.test.utils;
+package poolingpeople.mock.utils;
 
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;

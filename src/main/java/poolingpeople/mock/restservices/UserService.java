@@ -1,6 +1,6 @@
-package jobTest.test.restservices;
+package poolingpeople.mock.restservices;
 
-import jobTest.test.entities.User;
+import poolingpeople.mock.entities.User;
 
 
 /**

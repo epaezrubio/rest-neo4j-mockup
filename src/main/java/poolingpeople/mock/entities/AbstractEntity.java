@@ -1,4 +1,4 @@
-package jobTest.test.entities;
+package poolingpeople.mock.entities;
 
 import java.io.StringReader;
 import java.lang.reflect.Field;
