@@ -11,6 +11,7 @@
 	<properties>
 		<java-version>1.7</java-version>
 		<neo4j.version>2.0.1</neo4j.version>
+		<jersey.version>1.9</jersey.version>
 	</properties>
 	<!-- * End of user code for project -->
 	<build>
@@ -34,12 +35,6 @@
 		<!-- * End of user code for build -->
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j</artifactId>
@@ -68,11 +63,54 @@
 			<version>${neo4j.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${jersey.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
 			<id>neo4j-contrib-releases</id>
 			<url>https://raw.github.com/neo4j-contrib/m2/master/releases</url>
+		</repository>
+		<repository>
+			<id>neo4j-release-repository</id>
+			<name>Neo4j Maven 2 release repository</name>
+			<url>http://m2.neo4j.org/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>neo4j-snapshot-repository</id>
+			<name>Neo4j Maven 2 snapshot repository</name>
+			<url>http://m2.neo4j.org/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>Sun</id>
+			<url>http://download.java.net/maven/2</url>
 		</repository>
 	</repositories>
 </project>
