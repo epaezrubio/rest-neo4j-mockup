@@ -1,7 +1,5 @@
 package poolingpeople.mock.restservices;
 
-import java.util.ArrayList;
-
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -14,27 +12,17 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.neo4j.cypher.javacompat.ExecutionResult;
 import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.ResourceIterator;
-import org.neo4j.graphdb.Transaction;
 import org.neo4j.rest.graphdb.RestGraphDatabase;
 import org.neo4j.rest.graphdb.entity.RestNode;
 
 import poolingpeople.mock.entities.AbstractEntity;
 
-
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
 
 public abstract class AbstractService<T extends AbstractEntity<T>>
 {
@@ -47,12 +35,6 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 
 	Class<T> currentClass;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	@Inject
 	protected org.neo4j.graphdb.GraphDatabaseService dbService;
 
@@ -66,12 +48,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 		currentClass = clazz;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -85,12 +62,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 				.build();	
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -102,12 +74,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -116,12 +83,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 		return Response.noContent().build();	
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	
 	@DELETE
 	@Path("{id}")
 	public javax.ws.rs.core.Response delete(@PathParam("id") Long id) {
@@ -129,12 +91,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 		return Response.noContent().build();	
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	
 	@GET
 	public javax.ws.rs.core.Response list() {
 

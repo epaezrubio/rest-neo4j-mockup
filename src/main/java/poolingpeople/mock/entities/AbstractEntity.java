@@ -15,66 +15,21 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
 
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
-
 public abstract class AbstractEntity<T>
 {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	
 	@Inject
 	protected org.neo4j.graphdb.GraphDatabaseService dbService;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	protected org.neo4j.graphdb.Node underlyingNode;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-
 	Long id;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
 	public AbstractEntity(){
 		super();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-
 	public Long getId() {
 		return id;	
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 
 	public String serialize(){
 		if (id == null) {
@@ -112,13 +67,6 @@ public abstract class AbstractEntity<T>
 
 		return builder.build().toString();
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 
 	public T deserialize(String json){
 		JsonParser parser = Json.createParser(new StringReader(json));
@@ -158,13 +106,6 @@ public abstract class AbstractEntity<T>
 
 		return (T) this;
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 
 	public T updateOrCreate() {
 			if (id == null) {

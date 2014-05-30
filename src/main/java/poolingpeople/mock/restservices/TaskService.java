@@ -15,12 +15,6 @@ import poolingpeople.mock.entities.Task;
 @Stateless
 public class TaskService extends AbstractService<Task>
 {
-	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
 	public TaskService(){
 		super(Task.class);
 	}
