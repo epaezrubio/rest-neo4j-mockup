@@ -14,14 +14,20 @@ import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
+import poolingpeople.mock.entities.serializers.ISerializer;
+import poolingpeople.mock.entities.serializers.JSONSerializable;
 
-public abstract class AbstractEntity<T>
+
+public abstract class AbstractEntity<T> implements JSONSerializable<T>
 {
 	
 	@Inject
 	protected org.neo4j.graphdb.GraphDatabaseService dbService;
 	protected org.neo4j.graphdb.Node underlyingNode;
-	Long id;
+	protected Long id;
+	
+	@Inject
+	protected ISerializer<T> serializer;
 
 	public AbstractEntity(){
 		super();
@@ -180,6 +186,11 @@ public abstract class AbstractEntity<T>
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	@Override
+	public ISerializer<T> getSerializer() {
+		return serializer;
 	}
 }
 

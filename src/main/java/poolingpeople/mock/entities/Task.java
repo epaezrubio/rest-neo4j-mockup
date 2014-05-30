@@ -7,7 +7,7 @@ package poolingpeople.mock.entities;
  * @generated
  */
 
-public class Task extends AbstractEntity<Task>
+public class Task extends AbstractEntity<Task> 
 {
 	String title;
 	Long date;
