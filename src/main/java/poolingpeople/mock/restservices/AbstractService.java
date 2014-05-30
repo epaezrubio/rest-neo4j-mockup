@@ -22,6 +22,7 @@ import org.neo4j.rest.graphdb.RestGraphDatabase;
 import org.neo4j.rest.graphdb.entity.RestNode;
 
 import poolingpeople.mock.entities.AbstractEntity;
+import poolingpeople.mock.entities.serializers.SerializationView;
 
 
 public abstract class AbstractService<T extends AbstractEntity<T>>
@@ -55,7 +56,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	@Produces(MediaType.APPLICATION_JSON)
 	public javax.ws.rs.core.Response create(String body) {
 
-		T entity = instance.get().deserialize(body).updateOrCreate();
+		T entity = instance.get().getSerializer().load(body).updateOrCreate();
 
 		return Response.created(
 				uriInfo.getAbsolutePathBuilder().path(String.valueOf(entity.getId())).build())
@@ -69,8 +70,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	public javax.ws.rs.core.Response read(@PathParam("id") Long id) {
 
 		return Response.ok().entity(
-				instance.get().load(id).serialize())
-				.build();
+				instance.get().load(id).getSerializer().serialize(SerializationView.PRIVATE)).build();
 
 	}
 
@@ -79,7 +79,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public javax.ws.rs.core.Response update(@PathParam("id") Long id, String body) {
-		instance.get().load(id).deserialize(body).updateOrCreate();
+		instance.get().load(id).getSerializer().load(body).updateOrCreate();
 		return Response.noContent().build();	
 	}
 
@@ -98,9 +98,9 @@ public abstract class AbstractService<T extends AbstractEntity<T>>
 		Iterable<RestNode> it = ((RestGraphDatabase) dbService).getRestAPI().getNodesByLabel(currentClass.getSimpleName());
 		JsonArrayBuilder builder = Json.createArrayBuilder();
 
-		for(Node n : it){
-			builder.add(instance.get().load(n).serialize());
-		}
+//		for(Node n : it){
+//			builder.add(instance.get().getSerializer().load(n));
+//		}
 
 		return Response.ok(builder.build().toString()).build();
 	}

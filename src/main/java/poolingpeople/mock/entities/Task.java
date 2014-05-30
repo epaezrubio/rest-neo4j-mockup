@@ -1,5 +1,9 @@
 package poolingpeople.mock.entities;
 
+import javax.inject.Inject;
+
+import poolingpeople.mock.entities.serializers.ISerializer;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -7,13 +11,13 @@ package poolingpeople.mock.entities;
  * @generated
  */
 
-public class Task extends AbstractEntity<Task> 
-{
-	String title;
-	Long date;
+public class Task extends AbstractEntity<Task>{
+	private String title;
+	private Long date;
 
-	public Task(){
-		super();
+	@Inject
+	public Task(ISerializer<Task> serialize){
+		super(serialize);
 	}
 	
 	public String getTitle() {
@@ -21,7 +25,6 @@ public class Task extends AbstractEntity<Task>
 	}
 	
 	public Long getDate() {
-		// TODO : to implement
 		return date;	
 	}
 	
@@ -33,4 +36,34 @@ public class Task extends AbstractEntity<Task>
 		this.date = date;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

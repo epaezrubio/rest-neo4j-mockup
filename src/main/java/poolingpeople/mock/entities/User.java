@@ -1,5 +1,9 @@
 package poolingpeople.mock.entities;
 
+import javax.inject.Inject;
+
+import poolingpeople.mock.entities.serializers.ISerializer;
+
 
 public class User extends AbstractEntity<User>
 {
@@ -9,8 +13,9 @@ public class User extends AbstractEntity<User>
 	protected String email;
 	protected String password;
 
-	public User(){
-		super();
+	@Inject
+	public User(ISerializer<User> serialize){
+		super(serialize);
 	}
 	
 	public String getFirstName() {

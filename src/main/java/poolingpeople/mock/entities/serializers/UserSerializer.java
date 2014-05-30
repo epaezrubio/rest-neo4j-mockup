@@ -11,20 +11,20 @@ import javax.json.stream.JsonParser.Event;
 import org.apache.commons.lang3.exception.ContextedRuntimeException;
 import poolingpeople.mock.entities.User;
 
-public class UserSerializer implements ISerializer<User>{
+public class UserSerializer extends AbstractSerializer<User>{
 
 	@Override
-	public String serialize(User user, SerializationView view) {
+	public String serialize(SerializationView view) {
 
 		JsonObjectBuilder currentBuilder;
 
 		switch (view) {
 		case PRIVATE:
-			currentBuilder = getPrivateSerialization(user);
+			currentBuilder = getPrivateSerialization();
 			break;
 
 		case PUBLIC:
-			currentBuilder = getPublicSerialization(user);
+			currentBuilder = getPublicSerialization();
 			break;
 
 		default:
@@ -35,7 +35,7 @@ public class UserSerializer implements ISerializer<User>{
 	}
 
 	@Override
-	public void load(User user, String json) {
+	public User load(String json) {
 
 		JsonParser parser = Json.createParser(new StringReader(json));
 		while (parser.hasNext()){
@@ -79,26 +79,28 @@ public class UserSerializer implements ISerializer<User>{
 				}
 			}
 		}
+		return serializable;
 	}
 
-	private JsonObjectBuilder getPrivateSerialization(User user){
+	private JsonObjectBuilder getPrivateSerialization(){
 
-		JsonObjectBuilder builder = getPublicSerialization(user);
-		builder.add("email", user.getEmail());
+		JsonObjectBuilder builder = getPublicSerialization();
+		builder.add("email", serializable.getEmail());
 
 		return builder;
 
 	}
 
-	private JsonObjectBuilder getPublicSerialization(User user){
+	private JsonObjectBuilder getPublicSerialization(){
 
 		JsonObjectBuilder builder = Json.createObjectBuilder();
 
-		builder.add("firstName", user.getFirstName());
-		builder.add("lastName", user.getLastName());
-		builder.add("id", user.getId());
+		builder.add("firstName", serializable.getFirstName());
+		builder.add("lastName", serializable.getLastName());
+		builder.add("id", serializable.getId());
 
 		return builder;
 
 	}
+
 }

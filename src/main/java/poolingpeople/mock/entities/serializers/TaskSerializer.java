@@ -12,20 +12,20 @@ import org.apache.commons.lang3.exception.ContextedRuntimeException;
 
 import poolingpeople.mock.entities.Task;
 
-public class TaskSerializer implements ISerializer<Task>{
+public class TaskSerializer extends AbstractSerializer<Task>{
 
 	@Override
-	public String serialize(Task task, SerializationView view) {
+	public String serialize(SerializationView view) {
 
 		JsonObjectBuilder currentBuilder;
 
 		switch (view) {
 		case PRIVATE:
-			currentBuilder = getPrivateSerialization(task);
+			currentBuilder = getPrivateSerialization();
 			break;
 
 		case PUBLIC:
-			currentBuilder = getPublicSerialization(task);
+			currentBuilder = getPublicSerialization();
 			break;
 
 		default:
@@ -36,7 +36,7 @@ public class TaskSerializer implements ISerializer<Task>{
 	}
 
 	@Override
-	public void load(Task task, String json) {
+	public Task load(String json) {
 
 		JsonParser parser = Json.createParser(new StringReader(json));
 		while (parser.hasNext()){
@@ -80,23 +80,25 @@ public class TaskSerializer implements ISerializer<Task>{
 				}
 			}
 		}
+		
+		return serializable;
 	}
 
-	private JsonObjectBuilder getPrivateSerialization(Task task){
+	private JsonObjectBuilder getPrivateSerialization(){
 
-		JsonObjectBuilder builder = getPublicSerialization(task);
-		builder.add("date", task.getDate());
+		JsonObjectBuilder builder = getPublicSerialization();
+		builder.add("date", serializable.getDate());
 
 		return builder;
 
 	}
 
-	private JsonObjectBuilder getPublicSerialization(Task task){
+	private JsonObjectBuilder getPublicSerialization(){
 
 		JsonObjectBuilder builder = Json.createObjectBuilder();
 
-		builder.add("title", task.getTitle());
-		builder.add("id", task.getId());
+		builder.add("title", serializable.getTitle());
+		builder.add("id", serializable.getId());
 
 		return builder;
 
