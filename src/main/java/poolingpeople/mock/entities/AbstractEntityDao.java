@@ -5,6 +5,8 @@ import javax.validation.constraints.NotNull;
 import org.neo4j.graphdb.Node;
 import org.neo4j.rest.graphdb.RestAPI;
 
+import poolingpeople.mock.relations.Neo4jRelation;
+
 public abstract class AbstractEntityDao<T> {
 
 	protected RestAPI restAPI;
