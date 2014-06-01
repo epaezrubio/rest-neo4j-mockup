@@ -1,22 +1,23 @@
-package poolingpeople.mock.entities;
+package poolingpeople.mock.daos;
 
 import javax.validation.constraints.NotNull;
 
 import org.neo4j.graphdb.Node;
 import org.neo4j.rest.graphdb.RestAPI;
+import org.neo4j.rest.graphdb.batch.CypherResult;
 
 import poolingpeople.mock.relations.Neo4jRelation;
 
-public abstract class AbstractEntityDao<T> {
+public abstract class AbstractDao<T> {
 
 	protected RestAPI restAPI;
 	
 	public T loadById(@NotNull String uuid){
-		restAPI.query("", null);
+		CypherResult result = restAPI.query("", null);
 		return null;
 	}
 	
-	protected T loadbyNode(@NotNull Node node){
+	protected T loadByNode(@NotNull Node node){
 		return null;
 	}
 	
@@ -36,7 +37,11 @@ public abstract class AbstractEntityDao<T> {
 		
 	}
 	
-	protected void delete(@NotNull Long uuid){
+	protected void delete(@NotNull Long id){
+		
+	}
+	
+	public void deleteAll(){
 		
 	}
 	
