@@ -2,6 +2,8 @@ package poolingpeople.mock.filters;
 
 import java.io.IOException;
 
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,7 +12,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class LoggedUserFilter implements Filter{
-
+	
+	@Inject
+	Instance<UserContext> instance;
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
@@ -20,7 +25,10 @@ public class LoggedUserFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		
+		UserContext userContext = instance.get();
+		
+		
 		
 	}
 

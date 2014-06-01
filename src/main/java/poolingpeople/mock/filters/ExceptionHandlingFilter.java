@@ -9,25 +9,39 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ExceptionHandlingFilter implements Filter {
 
+	//@Inject : should be injected. Build a producer.
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		
+		try{
+			chain.doFilter(request, response);	
+		}catch(Exception e){
+			e = clearException(e);
+			logger.error(e.getMessage(), e);
+		}
 
+	}
+	
+	private Exception clearException(Exception original){
+		return original;
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
