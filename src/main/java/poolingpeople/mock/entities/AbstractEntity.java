@@ -30,7 +30,7 @@ public abstract class AbstractEntity<T> implements JSONSerializable<T>
 	}
 
 	public Long getId() {
-		return id;	
+		return id;
 	}
 
 	public T updateOrCreate() {

@@ -35,6 +35,10 @@ public class Task extends AbstractEntity<Task>{
 	public void setDate(Long date) {
 		this.date = date;
 	}
+	
+	public User getAssignee(){
+		return null;
+	}
 }
 
 
