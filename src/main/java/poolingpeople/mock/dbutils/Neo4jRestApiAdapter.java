@@ -9,6 +9,9 @@ import org.neo4j.rest.graphdb.entity.RestNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import poolingpeople.mock.daos.TaskDao;
+import poolingpeople.mock.entities.Task;
+
 public class Neo4jRestApiAdapter extends RestAPIFacade{
 
 	RestAPI restAPI;
@@ -35,11 +38,16 @@ public class Neo4jRestApiAdapter extends RestAPIFacade{
 	}
 	
 	public static void main(String[] args){
-		Neo4jRestApiAdapter adapter = new Neo4jRestApiAdapter();
-		adapter.beginTx();
-		RestNode node = adapter.createNode(FluidMap.get().put("attr1", "1").put("attr2", "2"));
-		adapter.addLabels(node, "l1", "l2");
-		adapter.createConstraint("l1", "attr1");
+//		Neo4jRestApiAdapter adapter = new Neo4jRestApiAdapter();
+//		adapter.beginTx();
+//		RestNode node = adapter.createNode(FluidMap.get().put("attr1", "1").put("attr2", "2"));
+//		adapter.addLabels(node, "l1", "l2");
+//		adapter.createConstraint("l1", "attr1");
+		TaskDao dao = new TaskDao();
+                Task t = new Task();
+                t.setId(2313L);
+                t.setDate(1L);
+		dao.create(t);
 	}
 	
 	@SuppressWarnings("serial")

@@ -1,6 +1,7 @@
 package poolingpeople.mock.entities;
 
 import javax.inject.Inject;
+import javax.persistence.Transient;
 
 import poolingpeople.mock.entities.serializers.ISerializer;
 
@@ -12,12 +13,16 @@ import poolingpeople.mock.entities.serializers.ISerializer;
  */
 
 public class Task extends AbstractEntity<Task>{
+	
 	private String title;
 	private Long date;
 
 	@Inject
 	public Task(ISerializer<Task> serialize){
 		super(serialize);
+	}
+        
+	public Task(){
 	}
 	
 	public String getTitle() {

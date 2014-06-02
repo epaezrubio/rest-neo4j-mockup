@@ -28,6 +28,10 @@ public abstract class AbstractEntity<T> implements JSONSerializable<T>
 		this.serializer = serializer;
 		this.serializer.setSerializableInstance((T) this);
 	}
+        
+        protected AbstractEntity(){
+		super();
+	}
 
 	public Long getId() {
 		return id;
