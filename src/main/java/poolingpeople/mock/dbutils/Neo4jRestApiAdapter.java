@@ -34,13 +34,18 @@ public class Neo4jRestApiAdapter {
                 .append(" IS UNIQUE").toString();
 
         
-        CypherResult r = restAPI.query(query, FluidMap.get().put("attr1", "1").put("attr2", "2"));
+        CypherResult r = restAPI.query(query, FluidMap.get()
+                .put("attr1", "1").put("attr2", "2"));
         logger.error(r.asMap().toString());
 
     }
 
-    public void createNodeWithLabel() {
-
+    public void createNodeWithLabel(Object Model, String... label) {
+        
+    }
+    
+    public void updateNode(Object Model, String uuid) {
+        
     }
     
     public CypherResult query(String query, Map<String, Object> params){
