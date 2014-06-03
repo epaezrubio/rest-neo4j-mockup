@@ -1,78 +1,43 @@
 package poolingpeople.mock.entities;
 
 import javax.inject.Inject;
-import javax.persistence.Transient;
 
 import poolingpeople.mock.entities.serializers.ISerializer;
 
-
 /**
  * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
+ * <!-- end-user-doc --> @generated
  */
+public class Task extends AbstractEntity<Task> {
 
-public class Task extends AbstractEntity<Task>{
-	
-	private String title;
-	private Long date;
+    private String title;
+    private Long date;
 
-	@Inject
-	public Task(ISerializer<Task> serialize){
-		super(serialize);
-	}
-        
-	public Task(){
-	}
-	
-	public String getTitle() {
-		return title;	
-	}
-	
-	public Long getDate() {
-		return date;	
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public void setDate(Long date) {
-		this.date = date;
-	}
-	
-	public User getAssignee(){
-		return null;
-	}
+    @Inject
+    public Task(ISerializer<Task> serialize) {
+        super(serialize);
+    }
+
+    public Task() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Long getDate() {
+        return date;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDate(Long date) {
+        this.date = date;
+    }
+
+    public User getAssignee() {
+        return null;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

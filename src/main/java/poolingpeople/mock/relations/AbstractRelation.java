@@ -1,38 +1,56 @@
 package poolingpeople.mock.relations;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import poolingpeople.mock.entities.AbstractEntity;
 
 public abstract class AbstractRelation {
 
-	protected static class ValidPair<S,E>{
+    protected RelationValidator validator;
+    protected Set<Map.Entry<Class<?>, Class<?>>> validPairs = new HashSet<>();
+    protected AbstractEntity<?> startEntity;
+    protected AbstractEntity<?> endEntity;
 
-	}
+    private static class NopRelationValidatior implements RelationValidator {
 
-	protected Set<ValidPair<?,?>> validPairs;
+        @Override
+        public String getMessage() {
+            return "that is the default validator";
+        }
 
-	protected AbstractEntity<?> startEntity;
-	protected AbstractEntity<?> endEntity;
+        @Override
+        public Boolean validate(AbstractRelation relation) {
+            return true;
+        }
 
-	public AbstractRelation setStartEntity(AbstractEntity<?> startEntity) {
-		this.startEntity = startEntity;
-		return this;
-	}
+    }
 
-	public AbstractRelation setEndEntity(AbstractEntity<?> endEntity) {
-		this.endEntity = endEntity;
-		return this;
-	}
+    protected AbstractRelation() {
+        validator = new NopRelationValidatior();
+    }
 
-	public AbstractEntity<?> getStartEntity() {
-		return startEntity;
-	}
+    public AbstractRelation setStartEntity(AbstractEntity<?> startEntity) {
+        this.startEntity = startEntity;
+        return this;
+    }
 
-	public AbstractEntity<?> getEndEntity() {
-		return endEntity;
-	}
+    public AbstractRelation setEndEntity(AbstractEntity<?> endEntity) {
+        this.endEntity = endEntity;
+        return this;
+    }
 
-	protected abstract void validateRelation();
+    public AbstractEntity<?> getStartEntity() {
+        return startEntity;
+    }
+
+    public AbstractEntity<?> getEndEntity() {
+        return endEntity;
+    }
+
+    protected void validateRelation() {
+        validator.validate(this);
+    }
 
 }

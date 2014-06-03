@@ -4,50 +4,47 @@ import javax.inject.Inject;
 
 import poolingpeople.mock.entities.serializers.ISerializer;
 
+public class User extends AbstractEntity<User> {
 
-public class User extends AbstractEntity<User>
-{
-	
-	protected String firstName;
-	protected String lastName;
-	protected String email;
-	protected String password;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected String password;
 
-	@Inject
-	public User(ISerializer<User> serialize){
-		super(serialize);
-	}
-	
-	public String getFirstName() {
-		return firstName;	
-	}
-	
-	public String getLastName() {
-		return lastName;	
-	}
+    @Inject
+    public User(ISerializer<User> serialize) {
+        super(serialize);
+    }
 
-	public String getEmail() {
-		return email;	
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getPassword() {
-		return password;	
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
-
