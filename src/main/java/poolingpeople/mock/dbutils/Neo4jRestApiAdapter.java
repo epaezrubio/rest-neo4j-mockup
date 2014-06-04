@@ -2,6 +2,7 @@ package poolingpeople.mock.dbutils;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 
@@ -19,7 +20,6 @@ import poolingpeople.mock.relations.AbstractRelation;
 public class Neo4jRestApiAdapter {
 
     RestAPI restAPI;
-    
     @Inject
     Client client;
     
@@ -48,6 +48,15 @@ public class Neo4jRestApiAdapter {
     
     public void updateNode(Object Model, String uuid) {
         
+    }
+    
+    public <R> R getEntity(String uuid, Class<R> clazz){
+        /**
+         * bablabla
+         */
+        CypherResult cr;
+        R instance = null;
+        return instance;
     }
     
     /*

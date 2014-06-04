@@ -17,138 +17,95 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.neo4j.graphdb.Node;
 import org.neo4j.rest.graphdb.RestGraphDatabase;
 import org.neo4j.rest.graphdb.entity.RestNode;
+import poolingpeople.mock.daos.AbstractDao;
+import poolingpeople.mock.daos.TaskDao;
+import poolingpeople.mock.daos.UserDao;
 
 import poolingpeople.mock.entities.AbstractEntity;
+import poolingpeople.mock.entities.serializers.JSONSerializable;
 import poolingpeople.mock.entities.serializers.SerializationView;
 
+public abstract class AbstractService<T extends AbstractEntity<T>> {
 
-public abstract class AbstractService<T extends AbstractEntity<T>>
-{
+    @Inject
+    Instance<T> instance;
 
-	@Inject
-	Instance<T> instance;
+    @Inject
+    TaskDao taskDao;
 
-	@Context
-	UriInfo uriInfo;
+    @Inject
+    UserDao userDao;
 
-	Class<T> currentClass;
+    @Context
+    UriInfo uriInfo;
 
-	@Inject
-	protected org.neo4j.graphdb.GraphDatabaseService dbService;
+    AbstractDao<T> defaultDao;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	protected AbstractService(Class<T> clazz){
-		super();
-		currentClass = clazz;
-	}
+    Class<T> currentClass;
 
-	
+    @Inject
+    protected org.neo4j.graphdb.GraphDatabaseService dbService;
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public javax.ws.rs.core.Response create(String body) {
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc --> @generated
+     */
+    protected AbstractService(Class<T> clazz, AbstractDao<T> abstractDao) {
+        super();
+        currentClass = clazz;
+        this.defaultDao = abstractDao;
+    }
 
-		T entity = instance.get().getSerializer().load(body).updateOrCreate();
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public javax.ws.rs.core.Response create(String body) {
 
-		return Response.created(
-				uriInfo.getAbsolutePathBuilder().path(String.valueOf(entity.getId())).build())
-				.build();	
-	}
+        T entity = instance.get().getSerializer().load(body).updateOrCreate();
+        return Response.created(
+                uriInfo.getAbsolutePathBuilder().path(String.valueOf(entity.getId())).build())
+                .build();
+    }
 
-	
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public javax.ws.rs.core.Response read(@PathParam("id") Long id) {
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public javax.ws.rs.core.Response read(@PathParam("id") String id) {
 
-		return Response.ok().entity(
-				instance.get().load(id).getSerializer().serialize(SerializationView.PRIVATE)).build();
+        JSONSerializable serializable = this.defaultDao.loadById(id);
 
-	}
+        return Response.ok().entity(serializable.getSerializer()
+                .serialize(SerializationView.PRIVATE)).build();
 
-	
-	@PUT
-	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public javax.ws.rs.core.Response update(@PathParam("id") Long id, String body) {
-		instance.get().load(id).getSerializer().load(body).updateOrCreate();
-		return Response.noContent().build();	
-	}
+    }
 
-	
-	@DELETE
-	@Path("{id}")
-	public javax.ws.rs.core.Response delete(@PathParam("id") Long id) {
-		dbService.getNodeById(id).delete();
-		return Response.noContent().build();	
-	}
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public javax.ws.rs.core.Response update(@PathParam("id") Long id, String body) {
+        instance.get().load(id).getSerializer().load(body).updateOrCreate();
+        return Response.noContent().build();
+    }
 
-	
-	@GET
-	public javax.ws.rs.core.Response list() {
+    @DELETE
+    @Path("{id}")
+    public javax.ws.rs.core.Response delete(@PathParam("id") Long id) {
+        dbService.getNodeById(id).delete();
+        return Response.noContent().build();
+    }
 
-		Iterable<RestNode> it = ((RestGraphDatabase) dbService).getRestAPI().getNodesByLabel(currentClass.getSimpleName());
-		JsonArrayBuilder builder = Json.createArrayBuilder();
+    @GET
+    public javax.ws.rs.core.Response list() {
+
+        Iterable<RestNode> it = ((RestGraphDatabase) dbService).getRestAPI().getNodesByLabel(currentClass.getSimpleName());
+        JsonArrayBuilder builder = Json.createArrayBuilder();
 
 //		for(Node n : it){
 //			builder.add(instance.get().getSerializer().load(n));
 //		}
-
-		return Response.ok(builder.build().toString()).build();
-	}
+        return Response.ok(builder.build().toString()).build();
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

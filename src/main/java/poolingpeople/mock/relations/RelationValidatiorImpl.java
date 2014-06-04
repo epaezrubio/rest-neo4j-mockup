@@ -11,13 +11,15 @@ package poolingpeople.mock.relations;
  * @author alacambra
  */
 public class RelationValidatiorImpl implements RelationValidator {
-    @Override
-    public Boolean validate(AbstractRelation relation){
-        return true;
-    }
+    
     
     @Override
     public String getMessage(){
         return "";
+    }
+
+    @Override
+    public Boolean validate(AbstractRelation relation) {
+        return true;
     }
 }

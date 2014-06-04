@@ -21,7 +21,7 @@ public abstract class AbstractRelation {
         }
 
         @Override
-        public Boolean validate(AbstractRelation relation) {
+        public Boolean validate(AbstractRelation relation){
             return true;
         }
 
