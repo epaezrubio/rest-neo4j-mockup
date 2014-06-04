@@ -36,8 +36,10 @@ public abstract class AbstractDao<T> {
         restAPI.updateNode(model, "");
     }
 
-    public void create(@NotNull T model) {
+    public T create(@NotNull T model) {
         restAPI.createNodeWithLabel(model, currentClass);
+        //TODO set the created id
+        return model;
     }
 
     public void delete(@NotNull String uuid) {

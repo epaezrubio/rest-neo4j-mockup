@@ -4,6 +4,8 @@ import java.io.StringReader;
 import java.lang.reflect.Field;
 
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
@@ -11,96 +13,100 @@ import javax.json.stream.JsonParser.Event;
 import org.apache.commons.lang3.exception.ContextedRuntimeException;
 import poolingpeople.mock.entities.User;
 
-public class UserSerializer extends AbstractSerializer<User>{
+public class UserSerializer extends AbstractSerializer<User> {
 
-	@Override
-	public String serialize(SerializationView view) {
+    @Override
+    public JsonObject serialize(SerializationView view) {
 
-		JsonObjectBuilder currentBuilder;
+        JsonObjectBuilder currentBuilder;
 
-		switch (view) {
-		case PRIVATE:
-			currentBuilder = getPrivateSerialization();
-			break;
+        switch (view) {
+            case PRIVATE:
+                currentBuilder = getPrivateSerialization();
+                break;
 
-		case PUBLIC:
-			currentBuilder = getPublicSerialization();
-			break;
+            case PUBLIC:
+                currentBuilder = getPublicSerialization();
+                break;
 
-		default:
-			throw new ContextedRuntimeException("view not available").addContextValue("used view", view);
-		}
+            default:
+                throw new ContextedRuntimeException("view not available").addContextValue("used view", view);
+        }
 
-		return currentBuilder.build().toString();
-	}
+        return currentBuilder.build();
+    }
 
-	@Override
-	public User load(String json) {
+    @Override
+    public User load(String json) {
 
-		JsonParser parser = Json.createParser(new StringReader(json));
-		while (parser.hasNext()){
-			if(parser.next().equals(JsonParser.Event.KEY_NAME)){
-				String name = parser.getString();
-				Event event = parser.next();
-				try{
-					Field field;
-					field = this.getClass().getDeclaredField(name);
+        JsonParser parser = Json.createParser(new StringReader(json));
+        while (parser.hasNext()) {
+            if (parser.next().equals(JsonParser.Event.KEY_NAME)) {
+                String name = parser.getString();
+                Event event = parser.next();
+                try {
+                    Field field;
+                    field = this.getClass().getDeclaredField(name);
 
-					field.setAccessible(true);
-					Object value = null;
+                    field.setAccessible(true);
+                    Object value = null;
 
-					switch(event){
-					case VALUE_STRING:
-						value = parser.getString();
-						break;
+                    switch (event) {
+                        case VALUE_STRING:
+                            value = parser.getString();
+                            break;
 
-					case VALUE_NUMBER:
-						value = parser.getLong();
-						break;
+                        case VALUE_NUMBER:
+                            value = parser.getLong();
+                            break;
 
-					default:
-						break;
+                        default:
+                            break;
 
-					}
-					try {
-						field.set(this, value);
-					} catch (IllegalArgumentException | IllegalAccessException
-							| SecurityException e) {
-						throw new ContextedRuntimeException("Invalid type for argument")
-						.addContextValue("field name", field.getName())
-						.addContextValue("field type", field.getDeclaringClass().getSimpleName())
-						.addContextValue("json value type", JsonParser.Event.VALUE_STRING); 
-					}
-				} catch (NoSuchFieldException e) {
-					throw new ContextedRuntimeException("Invalid type for argument")
-					.addContextValue("required field", name);
-				} catch (SecurityException e) {
-					throw new ContextedRuntimeException(e);
-				}
-			}
-		}
-		return serializable;
-	}
+                    }
+                    try {
+                        field.set(this, value);
+                    } catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
+                        throw new ContextedRuntimeException("Invalid type for argument")
+                                .addContextValue("field name", field.getName())
+                                .addContextValue("field type", field.getDeclaringClass().getSimpleName())
+                                .addContextValue("json value type", JsonParser.Event.VALUE_STRING);
+                    }
+                } catch (NoSuchFieldException e) {
+                    throw new ContextedRuntimeException("Invalid type for argument")
+                            .addContextValue("required field", name);
+                } catch (SecurityException e) {
+                    throw new ContextedRuntimeException(e);
+                }
+            }
+        }
+        return serializable;
+    }
 
-	private JsonObjectBuilder getPrivateSerialization(){
+    private JsonObjectBuilder getPrivateSerialization() {
 
-		JsonObjectBuilder builder = getPublicSerialization();
-		builder.add("email", serializable.getEmail());
+        JsonObjectBuilder builder = getPublicSerialization();
+        builder.add("email", serializable.getEmail());
 
-		return builder;
+        return builder;
 
-	}
+    }
 
-	private JsonObjectBuilder getPublicSerialization(){
+    private JsonObjectBuilder getPublicSerialization() {
 
-		JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-		builder.add("firstName", serializable.getFirstName());
-		builder.add("lastName", serializable.getLastName());
-		builder.add("id", serializable.getId());
+        builder.add("firstName", serializable.getFirstName());
+        builder.add("lastName", serializable.getLastName());
+        builder.add("id", serializable.getId());
 
-		return builder;
+        return builder;
 
-	}
+    }
+
+    @Override
+    public JsonArray serializeArray(SerializationView view) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

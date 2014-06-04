@@ -1,8 +1,19 @@
 package poolingpeople.mock.entities.serializers;
 
-public interface ISerializer<T>{
-	String serialize(SerializationView view);
-        String serialize();
-	T load(String json);
-	ISerializer<T> setSerializableInstance(T serializable);
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+
+public interface ISerializer<T> {
+
+    JsonObject serialize(SerializationView view);
+
+    JsonObject serialize();
+
+    JsonArray serializeArray(SerializationView view);
+
+    JsonArray serializeArray();
+
+    T load(String json);
+
+    ISerializer<T> setSerializableInstance(T serializable);
 }

@@ -8,6 +8,7 @@ package poolingpeople.mock.vo;
 import java.util.Collection;
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import poolingpeople.mock.entities.serializers.AbstractSerializer;
@@ -15,45 +16,52 @@ import poolingpeople.mock.entities.serializers.ISerializer;
 import poolingpeople.mock.entities.serializers.JSONSerializable;
 import poolingpeople.mock.entities.serializers.SerializationView;
 
-public class CountedElementsVO<T extends JSONSerializable> implements JSONSerializable<CountedElementsVO> {
+/**
+ *
+ * @author alacambra
+ */
+public class CollectionVO<T extends JSONSerializable> implements JSONSerializable<CollectionVO> {
 
     Collection<T> collection;
 
-    public CountedElementsVO(Collection<T> collection) {
+    public CollectionVO(Collection<T> collection) {
         this.collection = collection;
-    }
-
-    @Override
-    public ISerializer<CountedElementsVO> getSerializer() {
-        return new Serializer();
     }
 
     public Collection<T> getCollection() {
         return collection;
     }
 
+    @Override
+    public ISerializer<CollectionVO> getSerializer() {
+        return new CollectionVO.Serializer();
+    }
+
     private static class Serializer<R extends JSONSerializable>
-            extends AbstractSerializer<CountedElementsVO<R>> {
+            extends AbstractSerializer<CollectionVO<R>> {
+        
 
         @Override
-        public JsonObject serialize(SerializationView view) {
+        public JsonArray serializeArray(SerializationView view) {
             JsonObjectBuilder builder = Json.createObjectBuilder();
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
-            builder.add("total", this.serializable.getCollection().size());
-            builder.add("object", this.serializable
-                    .getCollection().iterator().next()
-                    .getSerializer().serialize(view));
-           
-            return builder.build();
+            for (R element : serializable.getCollection()) {
+                arrayBuilder.add(
+                        element.getSerializer()
+                        .serialize(SerializationView.PRIVATE));
+            }
+
+            return arrayBuilder.build();
         }
 
         @Override
-        public CountedElementsVO load(String json) {
+        public CollectionVO load(String json) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
         @Override
-        public JsonArray serializeArray(SerializationView view) {
+        public JsonObject serialize(SerializationView view) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }

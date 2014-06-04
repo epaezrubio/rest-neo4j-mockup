@@ -63,7 +63,8 @@ public abstract class AbstractService<T extends AbstractEntity<T>> {
     @Produces(MediaType.APPLICATION_JSON)
     public javax.ws.rs.core.Response create(String body) {
 
-        T entity = instance.get().getSerializer().load(body).updateOrCreate();
+        T entity = instance.get().getSerializer().load(body);
+        defaultDao.create(entity);
         return Response.created(
                 uriInfo.getAbsolutePathBuilder().path(String.valueOf(entity.getId())).build())
                 .build();
@@ -75,7 +76,6 @@ public abstract class AbstractService<T extends AbstractEntity<T>> {
     public javax.ws.rs.core.Response read(@PathParam("id") String id) {
 
         JSONSerializable serializable = this.defaultDao.loadById(id);
-
         return Response.ok().entity(serializable.getSerializer()
                 .serialize(SerializationView.PRIVATE)).build();
 
@@ -84,15 +84,15 @@ public abstract class AbstractService<T extends AbstractEntity<T>> {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public javax.ws.rs.core.Response update(@PathParam("id") Long id, String body) {
-        instance.get().load(id).getSerializer().load(body).updateOrCreate();
+    public javax.ws.rs.core.Response update(@PathParam("id") String id, String body) {
+        defaultDao.update(instance.get().getSerializer().load(body),id);
         return Response.noContent().build();
     }
 
     @DELETE
     @Path("{id}")
-    public javax.ws.rs.core.Response delete(@PathParam("id") Long id) {
-        dbService.getNodeById(id).delete();
+    public javax.ws.rs.core.Response delete(@PathParam("id") String id) {
+        defaultDao.delete(id);
         return Response.noContent().build();
     }
 
