@@ -26,6 +26,7 @@ import poolingpeople.mock.daos.UserDao;
 import poolingpeople.mock.entities.AbstractEntity;
 import poolingpeople.mock.entities.serializers.JSONSerializable;
 import poolingpeople.mock.entities.serializers.SerializationView;
+import poolingpeople.mock.vo.CollectionVO;
 
 public abstract class AbstractService<T extends AbstractEntity<T>> {
 
@@ -99,13 +100,9 @@ public abstract class AbstractService<T extends AbstractEntity<T>> {
     @GET
     public javax.ws.rs.core.Response list() {
 
-        Iterable<RestNode> it = ((RestGraphDatabase) dbService).getRestAPI().getNodesByLabel(currentClass.getSimpleName());
-        JsonArrayBuilder builder = Json.createArrayBuilder();
-
-//		for(Node n : it){
-//			builder.add(instance.get().getSerializer().load(n));
-//		}
-        return Response.ok(builder.build().toString()).build();
+        CollectionVO<T> c = new CollectionVO<>(defaultDao.list());
+        return Response.ok(c.getSerializer().serialize(SerializationView.PUBLIC)).build();
+        
     }
 
 }

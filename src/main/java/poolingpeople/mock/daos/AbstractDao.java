@@ -1,6 +1,7 @@
 package poolingpeople.mock.daos;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -56,6 +57,10 @@ public abstract class AbstractDao<T> {
 
     public void relate(Neo4jRelation relation) {
 
+    }
+    
+    public Collection<T> list(){
+        return null;
     }
 
 }
