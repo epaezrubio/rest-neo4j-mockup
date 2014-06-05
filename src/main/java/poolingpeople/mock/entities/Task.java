@@ -11,8 +11,8 @@ import poolingpeople.mock.entities.serializers.TaskSerializerQualifier;
  */
 public class Task extends AbstractEntity<Task> {
 
-    private String title;
-    private Long date;
+    private String title = "default title";
+    private Long date = 1L;
 
     @Inject
     public Task(@TaskSerializerQualifier ISerializer<Task> serialize) {

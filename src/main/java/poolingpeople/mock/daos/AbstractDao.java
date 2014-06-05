@@ -1,7 +1,10 @@
 package poolingpeople.mock.daos;
 
+import com.sun.xml.internal.ws.api.server.InstanceResolverAnnotation;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -14,6 +17,10 @@ public abstract class AbstractDao<T> {
     @Transient
     protected Neo4jRestApiAdapter restAPI = new Neo4jRestApiAdapter();
     private String currentClass;
+    
+    @Inject
+    Instance<T> instance;
+    
 
     protected AbstractDao(String currentClass) {
         this.currentClass = currentClass;
@@ -22,11 +29,7 @@ public abstract class AbstractDao<T> {
     }
 
     public T loadById(@NotNull String uuid) {
-        return null;
-    }
-
-    protected T loadByNode(@NotNull Node node) {
-        return null;
+        return instance.get();
     }
 
     public void update(@NotNull T model, @NotNull String uuid) {

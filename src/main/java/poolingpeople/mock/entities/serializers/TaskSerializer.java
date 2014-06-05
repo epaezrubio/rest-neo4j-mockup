@@ -14,6 +14,7 @@ import org.apache.commons.lang3.exception.ContextedRuntimeException;
 
 import poolingpeople.mock.entities.Task;
 
+@TaskSerializerQualifier
 public class TaskSerializer extends AbstractSerializer<Task> {
 
     /**

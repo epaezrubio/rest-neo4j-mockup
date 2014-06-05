@@ -13,6 +13,7 @@ import javax.json.stream.JsonParser.Event;
 import org.apache.commons.lang3.exception.ContextedRuntimeException;
 import poolingpeople.mock.entities.User;
 
+@UserSerializerQualifier
 public class UserSerializer extends AbstractSerializer<User> {
 
     @Override
