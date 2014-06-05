@@ -3,6 +3,7 @@ package poolingpeople.mock.entities;
 import javax.inject.Inject;
 
 import poolingpeople.mock.entities.serializers.ISerializer;
+import poolingpeople.mock.entities.serializers.TaskSerializerQualifier;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,7 +15,7 @@ public class Task extends AbstractEntity<Task> {
     private Long date;
 
     @Inject
-    public Task(ISerializer<Task> serialize) {
+    public Task(@TaskSerializerQualifier ISerializer<Task> serialize) {
         super(serialize);
     }
 

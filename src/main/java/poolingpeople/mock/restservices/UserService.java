@@ -1,6 +1,8 @@
 package poolingpeople.mock.restservices;
 
+import javax.inject.Inject;
 import javax.ws.rs.Path;
+import poolingpeople.mock.daos.AbstractDao;
 import poolingpeople.mock.daos.UserDao;
 import poolingpeople.mock.entities.User;
 
@@ -11,9 +13,17 @@ import poolingpeople.mock.entities.User;
 @Path("/users")
 public class UserService extends AbstractService<User> {
 
+    @Inject
+    private UserDao dao;
+            
     
     public UserService() {
-        super(User.class, new UserDao());
+        super(User.class);
+    }
+
+    @Override
+    public AbstractDao<User> getDefaultDao() {
+        return dao;
     }
 
 }

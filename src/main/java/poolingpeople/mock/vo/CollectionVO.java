@@ -34,7 +34,7 @@ public class CollectionVO<T extends JSONSerializable> implements JSONSerializabl
 
     @Override
     public ISerializer<CollectionVO> getSerializer() {
-        return new CollectionVO.Serializer();
+        return new CollectionVO.Serializer().setSerializableInstance(this);
     }
 
     private static class Serializer<R extends JSONSerializable>
@@ -43,7 +43,6 @@ public class CollectionVO<T extends JSONSerializable> implements JSONSerializabl
 
         @Override
         public JsonArray serializeArray(SerializationView view) {
-            JsonObjectBuilder builder = Json.createObjectBuilder();
             JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
             for (R element : serializable.getCollection()) {

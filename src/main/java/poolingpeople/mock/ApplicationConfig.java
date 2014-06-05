@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.netbeans.rest.application.config;
+package poolingpeople.mock;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.Application;
  *
  * @author alacambra
  */
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("rest")
 public class ApplicationConfig extends Application {
 
     @Override
@@ -37,10 +37,6 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider.class);
-        resources.add(org.codehaus.jackson.jaxrs.JacksonJsonProvider.class);
-        resources.add(org.codehaus.jackson.jaxrs.JsonMappingExceptionMapper.class);
-        resources.add(org.codehaus.jackson.jaxrs.JsonParseExceptionMapper.class);
         resources.add(poolingpeople.mock.restservices.AbstractService.class);
         resources.add(poolingpeople.mock.restservices.TaskService.class);
         resources.add(poolingpeople.mock.restservices.UserService.class);

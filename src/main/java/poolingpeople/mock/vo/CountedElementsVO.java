@@ -17,19 +17,19 @@ import poolingpeople.mock.entities.serializers.SerializationView;
 
 public class CountedElementsVO<T extends JSONSerializable> implements JSONSerializable<CountedElementsVO> {
 
-    Collection<T> collection;
+    CollectionVO<T> collectionVO;
 
-    public CountedElementsVO(Collection<T> collection) {
-        this.collection = collection;
+    public CountedElementsVO(CollectionVO<T> collection) {
+        this.collectionVO = collection;
     }
 
     @Override
     public ISerializer<CountedElementsVO> getSerializer() {
-        return new Serializer();
+        return new CountedElementsVO.Serializer().setSerializableInstance(this);
     }
 
-    public Collection<T> getCollection() {
-        return collection;
+    public CollectionVO<T> getCollection() {
+        return collectionVO;
     }
 
     private static class Serializer<R extends JSONSerializable>
@@ -39,10 +39,11 @@ public class CountedElementsVO<T extends JSONSerializable> implements JSONSerial
         public JsonObject serialize(SerializationView view) {
             JsonObjectBuilder builder = Json.createObjectBuilder();
 
-            builder.add("total", this.serializable.getCollection().size());
-            builder.add("object", this.serializable
-                    .getCollection().iterator().next()
-                    .getSerializer().serialize(view));
+            builder.add("total", 
+                    this.serializable.getCollection().getCollection().size());
+            builder.add("object", 
+                    this.serializable.getCollection()
+                            .getSerializer().serialize(view));
            
             return builder.build();
         }

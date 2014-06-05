@@ -2,43 +2,38 @@ package poolingpeople.mock.dbutils;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.client.Client;
 
-import org.neo4j.rest.graphdb.RestAPI;
-import org.neo4j.rest.graphdb.RestAPIFacade;
-import org.neo4j.rest.graphdb.batch.CypherResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import poolingpeople.mock.daos.TaskDao;
-import poolingpeople.mock.entities.AbstractEntity;
-import poolingpeople.mock.entities.Task;
-import poolingpeople.mock.relations.AbstractRelation;
-
+@ApplicationScoped
 public class Neo4jRestApiAdapter {
 
-    RestAPI restAPI;
-    @Inject
+//    RestAPI restAPI;
+    
+//    @Inject
     Client client;
     
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public Neo4jRestApiAdapter() {
-        restAPI = new RestAPIFacade("http://localhost:7474/db/data");
+        
+//        client = ClientBuilder.newClient();
+//        restAPI = new RestAPIFacade("http://localhost:7474/db/data");
     }
 
     public void createConstraint(String label, String attribute) {
-        String query
-                = new StringBuilder("CREATE CONSTRAINT ON (entity:").append(label)
-                .append(") ASSERT entity.").append(attribute)
-                .append(" IS UNIQUE").toString();
-
-        
-        CypherResult r = restAPI.query(query, FluidMap.get()
-                .put("attr1", "1").put("attr2", "2"));
-        logger.error(r.asMap().toString());
+//        String query
+//                = new StringBuilder("CREATE CONSTRAINT ON (entity:").append(label)
+//                .append(") ASSERT entity.").append(attribute)
+//                .append(" IS UNIQUE").toString();
+//
+//        
+//        CypherResult r = restAPI.query(query, FluidMap.get()
+//                .put("attr1", "1").put("attr2", "2"));
+//        logger.error(r.asMap().toString());
 
     }
 
@@ -86,5 +81,4 @@ public class Neo4jRestApiAdapter {
             return this;
         }
     }
-
 }

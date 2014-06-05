@@ -9,16 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import com.sun.jersey.core.reflection.AnnotatedMethod;
 
-public class TransactionFilter implements Filter,
-		com.sun.jersey.core.reflection.MethodList.Filter {
-
-	@Override
-	public boolean keep(AnnotatedMethod m) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+public class TransactionFilter implements Filter{
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

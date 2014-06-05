@@ -6,7 +6,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.neo4j.graphdb.Node;
-import org.neo4j.rest.graphdb.batch.CypherResult;
 import poolingpeople.mock.dbutils.Neo4jRestApiAdapter;
 import poolingpeople.mock.relations.Neo4jRelation;
 
@@ -16,16 +15,13 @@ public abstract class AbstractDao<T> {
     protected Neo4jRestApiAdapter restAPI = new Neo4jRestApiAdapter();
     private String currentClass;
 
-    protected AbstractDao() {
-        currentClass = ((ParameterizedType) this.getClass()
-                .getGenericSuperclass())
-                .getActualTypeArguments()[0].toString();
+    protected AbstractDao(String currentClass) {
+        this.currentClass = currentClass;
         currentClass
                 = currentClass.split("\\.")[currentClass.split("\\.").length - 1];
     }
 
     public T loadById(@NotNull String uuid) {
-        CypherResult result = restAPI.query("", null);
         return null;
     }
 

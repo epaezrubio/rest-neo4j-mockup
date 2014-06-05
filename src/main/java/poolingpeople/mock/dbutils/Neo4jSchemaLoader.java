@@ -2,13 +2,12 @@ package poolingpeople.mock.dbutils;
 
 import javax.inject.Inject;
 
-import org.neo4j.rest.graphdb.RestAPI;
 
 
 public class Neo4jSchemaLoader {
 
 	@Inject
-	RestAPI restAPI;
+	Neo4jRestApiAdapter restAPI;
 	
 	public void loadConstraints(){
 		

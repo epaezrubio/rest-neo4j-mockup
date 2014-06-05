@@ -3,6 +3,7 @@ package poolingpeople.mock.entities;
 import javax.inject.Inject;
 
 import poolingpeople.mock.entities.serializers.ISerializer;
+import poolingpeople.mock.entities.serializers.UserSerializerQualifier;
 
 public class User extends AbstractEntity<User> {
 
@@ -12,7 +13,7 @@ public class User extends AbstractEntity<User> {
     protected String password;
 
     @Inject
-    public User(ISerializer<User> serialize) {
+    public User(@UserSerializerQualifier ISerializer<User> serialize) {
         super(serialize);
     }
 

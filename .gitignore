@@ -36,3 +36,4 @@ model_*.xmi
 /.classpath
 /.project
 /WebContent
+/nb-configuration.xml

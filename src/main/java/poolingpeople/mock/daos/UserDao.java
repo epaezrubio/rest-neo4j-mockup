@@ -6,9 +6,12 @@ import poolingpeople.mock.entities.User;
 
 public class UserDao extends AbstractDao<User> {
 
-	public List<User> getFriends(){
-		return null;
-	}
+    public UserDao() {
+        super("user");
+    }
 
-	
+    public List<User> getFriends() {
+        return null;
+    }
+
 }
