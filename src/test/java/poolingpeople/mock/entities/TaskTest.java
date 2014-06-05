@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -14,7 +15,7 @@ import org.neo4j.rest.graphdb.RequestResult;
 //import org.neo4j.rest.graphdb.RestTestBase;
 
 import poolingpeople.mock.LocalTestServer;
-
+@Ignore
 public class TaskTest {
 
 	private GraphDatabaseService restGraphDb;
