@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,6 @@ public class ExceptionHandlingFilter implements Filter {
         try{
             chain.doFilter(request, response);
         }catch(Exception e){
-            e = clearException(e);
             logger.error(e.getMessage(), e);
             throw new WebApplicationException(e);
         }
