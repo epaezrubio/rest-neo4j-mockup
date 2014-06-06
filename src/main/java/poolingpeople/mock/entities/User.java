@@ -7,10 +7,10 @@ import poolingpeople.mock.entities.serializers.UserSerializerQualifier;
 
 public class User extends AbstractEntity<User> {
 
-    protected String firstName;
-    protected String lastName;
-    protected String email;
-    protected String password;
+    protected String firstName = "al";
+    protected String lastName = "lacambra";
+    protected String email = "a@a.a";
+    protected String password = "a";
 
     @Inject
     public User(@UserSerializerQualifier ISerializer<User> serialize) {

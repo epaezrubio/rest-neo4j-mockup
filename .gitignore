@@ -37,3 +37,5 @@ model_*.xmi
 /.project
 /WebContent
 /nb-configuration.xml
+/mock.iml
+/.idea

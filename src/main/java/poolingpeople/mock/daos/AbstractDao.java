@@ -1,14 +1,13 @@
 package poolingpeople.mock.daos;
 
-import com.sun.xml.internal.ws.api.server.InstanceResolverAnnotation;
-import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import org.neo4j.graphdb.Node;
 import poolingpeople.mock.dbutils.Neo4jRestApiAdapter;
 import poolingpeople.mock.relations.Neo4jRelation;
 
@@ -59,7 +58,11 @@ public abstract class AbstractDao<T> {
     }
     
     public Collection<T> list(){
-        return null;
+        List<T> list = new ArrayList<>();
+        list.add(instance.get());
+        list.add(instance.get());
+        
+        return list;
     }
 
 }

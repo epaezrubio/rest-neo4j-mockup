@@ -1,5 +1,6 @@
 package poolingpeople.mock.entities;
 
+import java.util.Date;
 import javax.inject.Inject;
 
 import poolingpeople.mock.entities.serializers.ISerializer;
@@ -12,7 +13,7 @@ import poolingpeople.mock.entities.serializers.TaskSerializerQualifier;
 public class Task extends AbstractEntity<Task> {
 
     private String title = "default title";
-    private Long date = 1L;
+    private Long date = new Date().getTime();
 
     @Inject
     public Task(@TaskSerializerQualifier ISerializer<Task> serialize) {

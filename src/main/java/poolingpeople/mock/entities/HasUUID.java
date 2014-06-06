@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 
-package poolingpeople.mock.dbutils;
+package poolingpeople.mock.entities;
 
 /**
  *
  * @author alacambra
  */
-public class CypherResult {
-    
+public interface HasUUID<T> {
+    public T setUuid(String uuid);
+    public String getUuid();
 }

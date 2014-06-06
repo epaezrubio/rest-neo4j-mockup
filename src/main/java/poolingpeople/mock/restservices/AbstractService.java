@@ -43,10 +43,6 @@ public abstract class AbstractService<T extends AbstractEntity<T>> {
     @Inject
     protected org.neo4j.graphdb.GraphDatabaseService dbService;
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc --> @generated
-     */
     protected AbstractService(Class<T> clazz) {
         super();
         currentClass = clazz;
@@ -94,7 +90,7 @@ public abstract class AbstractService<T extends AbstractEntity<T>> {
     public javax.ws.rs.core.Response list() {
 
         CollectionVO<T> c = new CollectionVO<>(getDefaultDao().list());
-        return Response.ok(c.getSerializer().serializeArray(SerializationView.PUBLIC)).build();
+        return Response.ok(c.getSerializer().serializeArray(SerializationView.PUBLIC).toString()).build();
         
     }
 
