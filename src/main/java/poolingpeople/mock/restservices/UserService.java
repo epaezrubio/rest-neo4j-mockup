@@ -11,17 +11,15 @@ import poolingpeople.mock.entities.User;
  * <!-- end-user-doc --> @generated
  */
 @Path("/users")
-public class UserService extends AbstractService<User> {
+public class UserService {
 
     @Inject
     private UserDao dao;
             
     
     public UserService() {
-        super(User.class);
     }
 
-    @Override
     public AbstractDao<User> getDefaultDao() {
         return dao;
     }

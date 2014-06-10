@@ -10,25 +10,36 @@ import java.util.Collection;
 import poolingpeople.mock.entities.serializers.ISerializer;
 import poolingpeople.mock.entities.serializers.JSONSerializable;
 import poolingpeople.mock.vo.serializers.CollectionVOSerializer;
+import poolingpeople.mock.vo.serializers.CollectionVOSerializerQualifier;
+
+import javax.inject.Inject;
 
 /**
  *
  * @author alacambra
  */
-public class CollectionVO<T extends JSONSerializable> implements JSONSerializable<CollectionVO> {
+public class CollectionVO implements JSONSerializable<CollectionVO> {
 
-    Collection<T> collection;
+    Collection<? extends JSONSerializable> collection;
 
-    public CollectionVO(Collection<T> collection) {
-        this.collection = collection;
+    ISerializer<CollectionVO> serializer;
+
+    @Inject
+    public CollectionVO(@CollectionVOSerializerQualifier ISerializer<CollectionVO> serializer) {
+        this.serializer = serializer.setSerializableInstance(this);
     }
 
-    public Collection<T> getCollection() {
+    public Collection<? extends JSONSerializable> getCollection() {
         return collection;
     }
 
     @Override
     public ISerializer<CollectionVO> getSerializer() {
-        return new CollectionVOSerializer().setSerializableInstance(this);
+        return serializer;
+    }
+
+    public CollectionVO setCollection(Collection<? extends JSONSerializable> collection) {
+        this.collection = collection;
+        return this;
     }
 }

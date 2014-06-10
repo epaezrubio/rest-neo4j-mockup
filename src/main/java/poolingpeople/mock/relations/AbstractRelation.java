@@ -53,4 +53,6 @@ public abstract class AbstractRelation {
         validator.validate(this);
     }
 
+    public abstract String name();
+
 }

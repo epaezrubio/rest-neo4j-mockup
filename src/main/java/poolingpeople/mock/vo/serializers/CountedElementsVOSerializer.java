@@ -13,7 +13,8 @@ import javax.json.JsonObjectBuilder;
 /**
  * Created by alacambra on 10.06.14.
  */
-public class CountedElementsVOSerializer<R extends JSONSerializable> extends AbstractSerializer<CountedElementsVO<R>> {
+@CountedElementsVOSerializerQualifier
+public class CountedElementsVOSerializer extends AbstractSerializer<CountedElementsVO> {
 
     @Override
     public JsonObject serialize(SerializationView view) {

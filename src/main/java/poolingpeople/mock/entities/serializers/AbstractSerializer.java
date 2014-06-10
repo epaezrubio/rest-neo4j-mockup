@@ -22,5 +22,4 @@ public abstract class AbstractSerializer<T> implements ISerializer<T> {
     public JsonObject serialize() {
         return serialize(null);
     }
-
 }

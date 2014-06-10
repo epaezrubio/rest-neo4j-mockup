@@ -6,10 +6,6 @@ import javax.inject.Inject;
 import poolingpeople.mock.entities.serializers.ISerializer;
 import poolingpeople.mock.entities.serializers.TaskSerializerQualifier;
 
-/**
- * <!-- begin-user-doc -->
- * <!-- end-user-doc --> @generated
- */
 public class Task extends AbstractEntity<Task> {
 
     private String title = "default title";

@@ -8,13 +8,22 @@ package poolingpeople.mock.vo;
         import poolingpeople.mock.entities.serializers.ISerializer;
         import poolingpeople.mock.entities.serializers.JSONSerializable;
         import poolingpeople.mock.vo.serializers.CountedElementsVOSerializer;
+        import poolingpeople.mock.vo.serializers.CountedElementsVOSerializerQualifier;
 
-public class CountedElementsVO<T extends JSONSerializable> implements JSONSerializable<CountedElementsVO> {
+        import javax.inject.Inject;
+
+public class CountedElementsVO implements JSONSerializable<CountedElementsVO> {
 //public class CollectionVO<T extends JSONSerializable> implements JSONSerializable<CollectionVO>
-    CollectionVO<T> collectionVO;
+    CollectionVO collectionVO;
+    ISerializer <CountedElementsVO> serializer;
 
-    public CountedElementsVO(CollectionVO<T> collection) {
+    @Inject
+    public CountedElementsVO(
+            @CountedElementsVOSerializerQualifier ISerializer<CountedElementsVO> serializer,
+            CollectionVO collection) {
+
         this.collectionVO = collection;
+        this.serializer = serializer;
     }
 
     @Override
@@ -22,7 +31,7 @@ public class CountedElementsVO<T extends JSONSerializable> implements JSONSerial
         return new CountedElementsVOSerializer().setSerializableInstance(this);
     }
 
-    public CollectionVO<T> getCollection() {
+    public CollectionVO getCollection() {
         return collectionVO;
     }
 }

@@ -34,7 +34,6 @@ public class MockUpApplication extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(poolingpeople.mock.WebApplicationExceptionMapper.class);
-        resources.add(poolingpeople.mock.restservices.AbstractService.class);
         resources.add(poolingpeople.mock.restservices.TaskService.class);
         resources.add(poolingpeople.mock.restservices.UserService.class);
     }

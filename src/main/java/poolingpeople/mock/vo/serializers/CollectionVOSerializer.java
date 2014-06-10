@@ -10,17 +10,15 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 
-/**
- * Created by alacambra on 10.06.14.
- */
-public class CollectionVOSerializer<R extends JSONSerializable> extends AbstractSerializer<CollectionVO<R>> {
+@CollectionVOSerializerQualifier
+public class CollectionVOSerializer extends AbstractSerializer<CollectionVO> {
 
 
     @Override
     public JsonArray serializeArray(SerializationView view) {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
-        for (R element : serializable.getCollection()) {
+        for (JSONSerializable element : serializable.getCollection()) {
             arrayBuilder.add(
                     element.getSerializer()
                             .serialize(SerializationView.PRIVATE));
