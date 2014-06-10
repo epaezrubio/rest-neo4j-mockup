@@ -20,7 +20,7 @@ import javax.ws.rs.ext.Provider;
  *
  * @author alacambra
  */
-@Provider
+//@Provider
 public class WebApplicationExceptionMapper implements ExceptionMapper<WebApplicationException>{
 
     @Override
