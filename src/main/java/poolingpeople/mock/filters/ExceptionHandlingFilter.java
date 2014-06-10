@@ -29,7 +29,7 @@ public class ExceptionHandlingFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
         
         try{
-            chain.doFilter(request, response);
+           chain.doFilter(request, response);
         }catch(Exception e){
             logger.error(e.getMessage(), e);
             throw new WebApplicationException(e);

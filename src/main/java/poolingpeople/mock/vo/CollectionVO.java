@@ -6,15 +6,10 @@
 package poolingpeople.mock.vo;
 
 import java.util.Collection;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import poolingpeople.mock.entities.serializers.AbstractSerializer;
+
 import poolingpeople.mock.entities.serializers.ISerializer;
 import poolingpeople.mock.entities.serializers.JSONSerializable;
-import poolingpeople.mock.entities.serializers.SerializationView;
+import poolingpeople.mock.vo.serializers.CollectionVOSerializer;
 
 /**
  *
@@ -34,34 +29,6 @@ public class CollectionVO<T extends JSONSerializable> implements JSONSerializabl
 
     @Override
     public ISerializer<CollectionVO> getSerializer() {
-        return new CollectionVO.Serializer().setSerializableInstance(this);
-    }
-
-    private static class Serializer<R extends JSONSerializable>
-            extends AbstractSerializer<CollectionVO<R>> {
-        
-
-        @Override
-        public JsonArray serializeArray(SerializationView view) {
-            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-
-            for (R element : serializable.getCollection()) {
-                arrayBuilder.add(
-                        element.getSerializer()
-                        .serialize(SerializationView.PRIVATE));
-            }
-
-            return arrayBuilder.build();
-        }
-
-        @Override
-        public CollectionVO load(String json) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public JsonObject serialize(SerializationView view) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
+        return new CollectionVOSerializer().setSerializableInstance(this);
     }
 }

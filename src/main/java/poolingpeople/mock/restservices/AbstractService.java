@@ -2,14 +2,7 @@ package poolingpeople.mock.restservices;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -66,8 +59,9 @@ public abstract class AbstractService<T extends AbstractEntity<T>> {
     public javax.ws.rs.core.Response read(@PathParam("id") String id) {
 
         JSONSerializable serializable = this.getDefaultDao().loadById(id);
-        return Response.ok().entity(serializable.getSerializer()
-                .serialize(SerializationView.PRIVATE)).build();
+        throw new WebApplicationException(new Exception("test dummy exception"));
+//        return Response.ok().entity(serializable.getSerializer()
+//                .serialize(SerializationView.PRIVATE)).build();
 
     }
 

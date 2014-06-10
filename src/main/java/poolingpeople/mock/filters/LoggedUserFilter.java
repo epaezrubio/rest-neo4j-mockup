@@ -28,8 +28,6 @@ public class LoggedUserFilter implements Filter{
 		
 		UserContext userContext = instance.get();
 		
-		
-		
 	}
 
 	@Override
