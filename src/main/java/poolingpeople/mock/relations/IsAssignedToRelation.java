@@ -14,7 +14,7 @@ import poolingpeople.mock.entities.User;
  *
  * @author alacambra
  */
-public class IsAssignedToRelation extends Neo4jRelation{
+public class IsAssignedToRelation extends Neo4jRelation<IsAssignedToRelation>{
 
     public IsAssignedToRelation(){
         validPairs.add(new ImmutablePair(Task.class, User.class));

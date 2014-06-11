@@ -1,24 +1,26 @@
 package poolingpeople.mock.restservices;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import poolingpeople.mock.cdi.EntityModelProvider;
-import poolingpeople.mock.daos.AbstractDao;
+import poolingpeople.mock.daos.RelationDao;
 import poolingpeople.mock.daos.TaskDao;
 import poolingpeople.mock.daos.UserDao;
 import poolingpeople.mock.entities.Task;
 import poolingpeople.mock.entities.serializers.JSONSerializable;
 import poolingpeople.mock.entities.serializers.SerializationView;
+import poolingpeople.mock.relations.IsAssignedToRelation;
 import poolingpeople.mock.vo.CollectionVO;
+import poolingpeople.mock.vo.CountedElementsVO;
 import poolingpeople.mock.vo.VOProvider;
+
+import java.util.List;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +32,9 @@ public class TaskService {
 
     @Inject
     TaskDao taskDao;
+
+    @Inject
+    RelationDao relationDao;
 
     @Inject
     EntityModelProvider modelProvider;
@@ -92,8 +97,30 @@ public class TaskService {
     public javax.ws.rs.core.Response list() {
 
         CollectionVO c = voProvider.getInstance(CollectionVO.class).setCollection(taskDao.list());
-        return Response.ok(c.getSerializer().serialize(SerializationView.PUBLIC).toString()).build();
+        return Response.ok(c.getSerializer().serializeArray(SerializationView.PUBLIC).toString()).build();
 
     }
+
+    @GET
+    @Path("assignedto/{assigneeId}")
+    public Response getTasksOfAssignee(@PathParam("assigneeId") String assigneeId){
+
+        List<Task> tasks = taskDao.getTasksByAssignee();
+        CountedElementsVO countedElementsVO =
+                voProvider.getInstance(CountedElementsVO.class)
+                        .setCollectionVO(voProvider.getInstance(CollectionVO.class)
+                                .setCollection(tasks));
+
+        return Response.ok().entity(countedElementsVO.getSerializer().serialize().toString()).build();
+    }
+
+    @PUT
+    @Path("assignto/{assigneeId}")
+    public Response assignTaskTo(@PathParam("assigneeId") String assigneeId){
+        IsAssignedToRelation isAssignedToRelation = new IsAssignedToRelation().setStartEntity(null).setEndEntity(null);
+        relationDao.createRelation(isAssignedToRelation);
+        return Response.accepted().build();
+    }
+
 
 }

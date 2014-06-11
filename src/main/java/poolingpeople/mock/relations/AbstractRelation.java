@@ -6,7 +6,7 @@ import java.util.Set;
 
 import poolingpeople.mock.entities.AbstractEntity;
 
-public abstract class AbstractRelation {
+public abstract class AbstractRelation<T> {
 
     protected RelationValidator validator;
     protected Set<Map.Entry<Class<?>, Class<?>>> validPairs = new HashSet<>();
@@ -31,14 +31,14 @@ public abstract class AbstractRelation {
         validator = new NopRelationValidatior();
     }
 
-    public AbstractRelation setStartEntity(AbstractEntity<?> startEntity) {
+    public T setStartEntity(AbstractEntity<?> startEntity) {
         this.startEntity = startEntity;
-        return this;
+        return (T)this;
     }
 
-    public AbstractRelation setEndEntity(AbstractEntity<?> endEntity) {
+    public T setEndEntity(AbstractEntity<?> endEntity) {
         this.endEntity = endEntity;
-        return this;
+        return (T)this;
     }
 
     public AbstractEntity<?> getStartEntity() {
@@ -49,7 +49,7 @@ public abstract class AbstractRelation {
         return endEntity;
     }
 
-    protected void validateRelation() {
+    public void validateRelation() {
         validator.validate(this);
     }
 
