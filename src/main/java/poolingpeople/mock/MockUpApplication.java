@@ -11,11 +11,12 @@ import javax.ws.rs.core.Application;
  * @author alacambra
  */
 @javax.ws.rs.ApplicationPath("rest")
-public class MockUpApplication extends Application {
+public class MockUpApplication extends Application
+{
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Override
+//    @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
         // following code can be used to customize Jersey 1.x JSON provider:
@@ -30,12 +31,6 @@ public class MockUpApplication extends Application {
         return resources;
     }
 
-    /**
-     * Do not modify addRestResourceClasses() method.
-     * It is automatically populated with
-     * all resources defined in the project.
-     * If required, comment out calling this method in getClasses().
-     */
     private void addRestResourceClasses(Set<Class<?>> resources) {
 //        resources.add(poolingpeople.mock.WebApplicationExceptionMapper.class);
         resources.add(poolingpeople.mock.restservices.TaskService.class);

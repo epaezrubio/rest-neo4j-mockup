@@ -92,7 +92,7 @@ public class TaskService {
     public javax.ws.rs.core.Response list() {
 
         CollectionVO c = voProvider.getInstance(CollectionVO.class).setCollection(taskDao.list());
-        return Response.ok(c.getSerializer().serializeArray(SerializationView.PUBLIC).toString()).build();
+        return Response.ok(c.getSerializer().serialize(SerializationView.PUBLIC).toString()).build();
 
     }
 

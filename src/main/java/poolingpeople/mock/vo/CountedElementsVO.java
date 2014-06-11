@@ -13,22 +13,22 @@ package poolingpeople.mock.vo;
         import javax.inject.Inject;
 
 public class CountedElementsVO implements JSONSerializable<CountedElementsVO> {
-//public class CollectionVO<T extends JSONSerializable> implements JSONSerializable<CollectionVO>
     CollectionVO collectionVO;
     ISerializer <CountedElementsVO> serializer;
 
     @Inject
-    public CountedElementsVO(
-            @CountedElementsVOSerializerQualifier ISerializer<CountedElementsVO> serializer,
-            CollectionVO collection) {
+    public CountedElementsVO(@CountedElementsVOSerializerQualifier ISerializer<CountedElementsVO> serializer) {
+        this.serializer = serializer.setSerializableInstance(this);
+    }
 
-        this.collectionVO = collection;
-        this.serializer = serializer;
+    public CountedElementsVO setCollectionVO(CollectionVO collectionVO) {
+        this.collectionVO = collectionVO;
+        return this;
     }
 
     @Override
     public ISerializer<CountedElementsVO> getSerializer() {
-        return new CountedElementsVOSerializer().setSerializableInstance(this);
+        return serializer;
     }
 
     public CollectionVO getCollection() {

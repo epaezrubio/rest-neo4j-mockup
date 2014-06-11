@@ -1,6 +1,16 @@
 package poolingpeople.mock.restservices;
 
-import javax.ejb.Stateless;
+import poolingpeople.mock.cdi.EntityModelProvider;
+import poolingpeople.mock.daos.TaskDao;
+import poolingpeople.mock.daos.UserDao;
+import poolingpeople.mock.entities.User;
+import poolingpeople.mock.entities.serializers.JSONSerializable;
+import poolingpeople.mock.entities.serializers.SerializationView;
+import poolingpeople.mock.vo.CollectionVO;
+import poolingpeople.mock.vo.CountedElementsVO;
+import poolingpeople.mock.vo.VOProvider;
+
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -8,27 +18,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import poolingpeople.mock.cdi.EntityModelProvider;
-import poolingpeople.mock.daos.AbstractDao;
-import poolingpeople.mock.daos.TaskDao;
-import poolingpeople.mock.daos.UserDao;
-import poolingpeople.mock.entities.Task;
-import poolingpeople.mock.entities.User;
-import poolingpeople.mock.entities.serializers.JSONSerializable;
-import poolingpeople.mock.entities.serializers.SerializationView;
-import poolingpeople.mock.vo.CollectionVO;
-import poolingpeople.mock.vo.VOProvider;
-
 /**
  * <!-- begin-user-doc -->
  * <!-- end-user-doc --> @generated
  */
 @Path("users")
-@Stateless
+@RequestScoped
 public class UserService {
 
-    @Inject
-    TaskDao taskDao;
+//    @Inject
+//    TaskDao taskDao;
 
     @Inject
     EntityModelProvider modelProvider;
@@ -48,8 +47,6 @@ public class UserService {
 
     }
 
-
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -67,7 +64,7 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     public javax.ws.rs.core.Response read(@PathParam("id") String id) {
 
-        JSONSerializable serializable = this.taskDao.loadById(id);
+        JSONSerializable serializable = this.userDao.loadById(id);
         return Response.ok().entity(serializable.getSerializer()
                 .serialize(SerializationView.PRIVATE)).build();
     }
@@ -83,7 +80,7 @@ public class UserService {
     @DELETE
     @Path("{id}")
     public javax.ws.rs.core.Response delete(@PathParam("id") String id) {
-        taskDao.delete(id);
+        userDao.delete(id);
         return Response.noContent().build();
     }
 
@@ -91,8 +88,12 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     public javax.ws.rs.core.Response list() {
 
-        CollectionVO c = voProvider.getInstance(CollectionVO.class).setCollection(userDao.list());
-        return Response.ok(c.getSerializer().serializeArray(SerializationView.PUBLIC).toString()).build();
+        CountedElementsVO c = voProvider.getInstance(
+                CountedElementsVO.class).setCollectionVO(
+                    voProvider.getInstance(CollectionVO.class)
+                            .setCollection(userDao.list()));
+
+        return Response.ok(c.getSerializer().serialize(SerializationView.PUBLIC).toString()).build();
 
     }
 }

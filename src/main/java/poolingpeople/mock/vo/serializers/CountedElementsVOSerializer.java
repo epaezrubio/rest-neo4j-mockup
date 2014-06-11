@@ -20,22 +20,19 @@ public class CountedElementsVOSerializer extends AbstractSerializer<CountedEleme
     public JsonObject serialize(SerializationView view) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        builder.add("total",
-                this.serializable.getCollection().getCollection().size());
-        builder.add("object",
-                this.serializable.getCollection()
-                        .getSerializer().serialize(view));
+        builder.add("total", this.serializable.getCollection().getCollection().size());
+        builder.add("object", this.serializable.getCollection().getSerializer().serializeArray(view));
 
         return builder.build();
     }
 
     @Override
     public CountedElementsVO load(String json) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public JsonArray serializeArray(SerializationView view) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

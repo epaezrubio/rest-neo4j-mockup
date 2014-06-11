@@ -16,12 +16,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-
 /**
  *
  * @author alacambra
  */
-@Provider
+//@Provider
 public class WebApplicationExceptionMapper implements ExceptionMapper<WebApplicationException>{
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
