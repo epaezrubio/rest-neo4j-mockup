@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
-import org.jboss.resteasy.core.registry.ClassNode;
+//import org.jboss.resteasy.core.registry.ClassNode;
 /**
  *
  * @author alacambra
