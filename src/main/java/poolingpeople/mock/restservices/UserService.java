@@ -26,8 +26,8 @@ import javax.ws.rs.core.UriInfo;
 @RequestScoped
 public class UserService {
 
-//    @Inject
-//    TaskDao taskDao;
+    @Inject
+    TaskDao taskDao;
 
     @Inject
     EntityModelProvider modelProvider;
@@ -90,8 +90,8 @@ public class UserService {
 
         CountedElementsVO c = voProvider.getInstance(
                 CountedElementsVO.class).setCollectionVO(
-                    voProvider.getInstance(CollectionVO.class)
-                            .setCollection(userDao.list()));
+                voProvider.getInstance(CollectionVO.class)
+                        .setCollection(userDao.list()));
 
         return Response.ok(c.getSerializer().serialize(SerializationView.PUBLIC).toString()).build();
 
